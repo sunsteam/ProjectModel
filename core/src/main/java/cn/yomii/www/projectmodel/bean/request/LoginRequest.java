@@ -1,12 +1,10 @@
 package cn.yomii.www.projectmodel.bean.request;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import java.util.UUID;
 
-import cn.yomii.www.projectmodel.App;
 import cn.yomii.www.projectmodel.BuildConfig;
 import cn.yomii.www.projectmodel.Info;
 import cn.yomii.www.projectmodel.utils.SpfUtils;
@@ -16,19 +14,7 @@ import cn.yomii.www.projectmodel.utils.SpfUtils;
  */
 public class LoginRequest extends RequestBean {
 
-    public String app = "aphone";
-
-    public int ver = 1;
-
-    public int os = 1;
-
-    public String ip;
-
-    public String mac;
-
     public String imei;
-
-    public String csmid;
 
     public String uid;
 
@@ -38,44 +24,37 @@ public class LoginRequest extends RequestBean {
 
     /**
      * 用于正常登陆, imei会从spf获取, 没有则新建
-     *
-     * @param csmid
-     * @param uid
-     * @param pwd
      */
-    public LoginRequest(String csmid, String uid, String pwd) {
+    public LoginRequest(String uid, String pwd) {
         super("app_login");
-        this.csmid = csmid;
         this.uid = uid;
         this.pwd = pwd;
 
-        SharedPreferences main = App.getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
-        imei = main.getString("uuid", "");
+        SharedPreferences user = SpfUtils.getUser();
+        imei = user.getString(SpfUtils.USER_IMEI, "");
         if (TextUtils.isEmpty(imei)) {
             imei = UUID.randomUUID().toString();
-            main.edit().putString("uuid", imei).apply();
+            user.edit().putString("uuid", imei).apply();
         }
     }
 
 
     /**
-     * 只用于自动重试登录
+     * 只用于自动登录
      */
     private LoginRequest() {
         super("app_login");
         this.imei = Info.getImei();
-        SharedPreferences spf = SpfUtils.getSpf("longinvalue");
-        this.pwd = spf.getString("txt2", "");
+        SharedPreferences user = SpfUtils.getUser();
+        this.pwd = user.getString(SpfUtils.USER_PWD, "");
         if (TextUtils.isEmpty(pwd)) {
-            this.csmid = "";
             this.uid = "";
         } else {
-            this.csmid = spf.getString("txt", "");
-            this.uid = spf.getString("txt1", "");
+            this.uid = user.getString(SpfUtils.USER_ID, "");
         }
     }
 
-    public static LoginRequest getRetryLoginRequest(){
+    public static LoginRequest getRetryLoginRequest() {
         return new LoginRequest();
     }
 }

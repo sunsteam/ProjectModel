@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">ProjectModel</string>
+    <string name="load_more">加载中...</string>
+    <string name="load_nomore">已显示全部内容</string>
+    <string name="load_error">操作失败</string>
+    <string name="load_empty">没有内容</string>
+    <string name="list_server_error">系统维护中</string>
+    <string name="server_error">正在进行系统维护，目前暂停使用，请稍候再试。</string>
     <string name="error_9984_token_expired">登录已过期</string>
 </resources>

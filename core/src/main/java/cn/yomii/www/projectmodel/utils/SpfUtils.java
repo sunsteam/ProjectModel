@@ -32,6 +32,21 @@ public class SpfUtils {
      */
     public static final String USER = "user";
 
+    /**
+     * 储存临时用户身份证 uuid, 作为IMEI使用
+     */
+    public static final String USER_IMEI = "uuid";
+
+    /**
+     * 缓存用户上次的登录用户名
+     */
+    public static final String USER_ID = "user_id";
+
+    /**
+     * 缓存用户上次的登录用户名
+     */
+    public static final String USER_PWD = "user_pwd";
+
 
 
 
