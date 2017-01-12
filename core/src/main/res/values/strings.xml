@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ProjectModel</string>
+    <string name="error_9984_token_expired">登录已过期</string>
+</resources>
