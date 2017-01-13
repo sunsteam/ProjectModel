@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.lzy.okgo.request.BaseRequest;
 
-import cn.yomii.www.projectmodel.Info;
 import cn.yomii.www.projectmodel.bean.request.ListRequestBean;
 import cn.yomii.www.projectmodel.bean.response.ListResponseBean;
 import cn.yomii.www.projectmodel.net.http.HttpHelper;
@@ -25,14 +24,6 @@ public class WebLoader<R extends ListRequestBean, Z extends ListResponseBean>
     public void setRequest(@NonNull R request) {
         this.request = request;
         callback = new ListCallback();
-    }
-
-    @Override
-    public void refreshData() {
-        state = STATE_HASMORE;
-        request.token = Info.getToken();
-        request.pageindex = -1;
-        loadNextPage();
     }
 
     @Override

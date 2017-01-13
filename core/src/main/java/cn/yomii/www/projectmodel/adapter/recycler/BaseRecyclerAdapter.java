@@ -1,33 +1,30 @@
-package cn.yomii.www.projectmodel.adapter.list;
+package cn.yomii.www.projectmodel.adapter.recycler;
 
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.yomii.www.projectmodel.adapter.list.viewholder.BaseViewHolder;
-
+import cn.yomii.www.projectmodel.adapter.recycler.recyclerholder.BaseRecyclerHolder;
 
 /**
- * List adapter 基类
+ * RecyclerView 基类
  *
  * @param <T> 数据包装类型
  *            <p>
  *            Created by Yomii on 2016/6/14.
  */
-public abstract class BaseListAdapter<T> extends BaseAdapter {
+public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRecyclerHolder<T>> {
 
     protected List<T> dataList;
 
-
-    public BaseListAdapter() {
+    public BaseRecyclerAdapter() {
         this(null);
     }
 
-    public BaseListAdapter(List<T> dataList) {
+    public BaseRecyclerAdapter(List<T> dataList) {
         this.dataList = (dataList == null ? new ArrayList<T>() : dataList);
+        setHasStableIds(true);
     }
 
     public List<T> getDataList() {
@@ -69,10 +66,12 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
         }
     }
 
-    public void removeData(int postion) {
-        if (postion < dataList.size() && postion > -1) {
-            this.dataList.remove(postion);
-            notifyDataSetChanged();
+    public void removeData(int position) {
+        if (position < dataList.size() && position > -1) {
+            dataList.remove(position);
+            notifyItemRemoved(position);
+            if (position == 0)
+                notifyItemChanged(position);
         }
     }
 
@@ -81,15 +80,9 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-
     @Override
-    public int getCount() {
+    public int getItemCount() {
         return dataList.size();
-    }
-
-    @Override
-    public T getItem(int position) {
-        return dataList.get(position);
     }
 
     @Override
@@ -99,35 +92,8 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 
 
     @Override
-    public int getItemViewType(int position) {
-        return 0;
-    }
-
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        //内容条目
-        BaseViewHolder<T> holder;
-        if (convertView == null) {
-            holder = getViewHolder(position, parent);
-        } else {
-            holder = (BaseViewHolder<T>) convertView.getTag();
-        }
+    public void onBindViewHolder(BaseRecyclerHolder<T> holder, int position) {
         holder.setData(dataList.get(position), position);
-
-        return holder.getRootView();
     }
-
-    /**
-     * 获取条目控制器
-     *
-     * @param position 位置
-     * @param parent   父控件
-     *
-     * @return BaseViewHolder
-     */
-    protected abstract BaseViewHolder<T> getViewHolder(int position, ViewGroup parent);
 
 }

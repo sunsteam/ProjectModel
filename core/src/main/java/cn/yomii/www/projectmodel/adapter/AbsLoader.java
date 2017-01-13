@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import cn.yomii.www.projectmodel.Info;
 import cn.yomii.www.projectmodel.bean.request.ListRequestBean;
 import cn.yomii.www.projectmodel.bean.response.ListResponseBean;
 
@@ -36,6 +37,14 @@ public abstract class AbsLoader<R extends ListRequestBean, Z extends ListRespons
     public void requestData(R request) {
         this.request = request;
         refreshData();
+    }
+
+    @Override
+    public void refreshData() {
+        state = STATE_HASMORE;
+        request.token = Info.getToken();
+        request.pageindex = -1;
+        loadNextPage();
     }
 
     @NonNull
