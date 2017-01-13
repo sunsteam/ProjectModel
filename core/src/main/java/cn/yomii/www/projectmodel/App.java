@@ -76,11 +76,17 @@ public class App extends Application {
                 }
             });
 
-            sContext = getApplicationContext();
             sMainTid = Process.myTid();
             sMainThread = Thread.currentThread();
             sHandler = new Handler();
+            sContext = getApplicationContext();
             sMetrics = sContext.getResources().getDisplayMetrics();
+
+            LogUtils.w("逻辑密度: " + sMetrics.density);
+            LogUtils.w("屏幕密度: " + sMetrics.densityDpi);
+            LogUtils.w("屏幕宽度: " + sMetrics.widthPixels);
+            LogUtils.w("屏幕高度: " + sMetrics.heightPixels);
+            LogUtils.w("缩放密度: " + sMetrics.scaledDensity);
 
             LogUtils.getLogConfig().configAllowLog(BuildConfig.LOG_DEBUG);
 
@@ -96,13 +102,9 @@ public class App extends Application {
                     .debug("OkGo", Level.INFO, true)                                //是否打开调试
                     .setCertificates(new Buffer().writeUtf8(CRT).inputStream());    //证书
 
-            LogUtils.w("密度: "+ sMetrics.density);
-            LogUtils.w("屏宽: "+ getResources().getDisplayMetrics().widthPixels);
+
         }
     }
-
-
-
 
 
     private String getCurrentProcessName() {

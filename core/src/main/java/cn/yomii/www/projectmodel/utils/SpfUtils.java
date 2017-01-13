@@ -1,5 +1,6 @@
 package cn.yomii.www.projectmodel.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -70,6 +71,7 @@ public class SpfUtils {
         getSpf().edit().putBoolean(key, value).apply();
     }
 
+    @SuppressLint("CommitPrefEdits")
     public static void saveStringSet(String key, Set<String> stdNoSet){
         getSpf().edit().putStringSet(key,null).commit();
         getSpf().edit().putStringSet(key,stdNoSet).apply();
