@@ -1,6 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.yomii.www.projectmodel">
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -13,10 +19,12 @@
         <meta-data
             android:name="cn.yomii.www.projectmodel.utils.glide.OkHttpGlideModule"
             android:value="GlideModule" />
-        <!--友盟统计key-->
+
+        <!-- Bugly配置APP渠道号 -->
         <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="5787320fe0f55a9ed0002daf" />
+            android:name="BUGLY_APP_CHANNEL"
+            android:value="@string/app_name" />
+
 
     </application>
 

@@ -11,6 +11,7 @@ import android.util.DisplayMetrics;
 
 import com.apkfuns.logutils.LogUtils;
 import com.lzy.okgo.OkGo;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -88,11 +89,13 @@ public class App extends Application {
             LogUtils.w("屏幕高度: " + sMetrics.heightPixels);
             LogUtils.w("缩放密度: " + sMetrics.scaledDensity);
 
+            //LogUtils初始化
             LogUtils.getLogConfig().configAllowLog(BuildConfig.LOG_DEBUG);
 
-            //设置统计超时时间为1分钟
-            //MobclickAgent.setSessionContinueMillis(60000);
-            //MobclickAgent.setDebugMode(BuildConfig.LOG_DEBUG);
+            //Bugly初始化
+            CrashReport.initCrashReport(this, Bugly_ID, BuildConfig.LOG_DEBUG);
+            CrashReport.setIsDevelopmentDevice(this, BuildConfig.DEBUG);
+
 
             OkGo.init(this);
             OkGo.getInstance()
@@ -145,7 +148,12 @@ public class App extends Application {
     public static final String WX_SECRET = "wx0798e1bdcaeca37c";
 
     /**
+     * Bugly App ID
+     */
+    public static final String Bugly_ID = "todo";
+
+    /**
      * 服务器自签名https证书
      */
-    public static final String CRT = "";
+    public static final String CRT = "todo";
 }
