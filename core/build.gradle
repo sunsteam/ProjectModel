@@ -76,9 +76,9 @@ dependencies {
     compile 'com.alibaba:fastjson:1.2.8'
     compile 'com.apkfuns.logutils:library:1.4.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.chrisbanes.photoview:library:1.2.4'
-    compile 'se.emilsjolander:stickylistheaders:2.7.0'
-    compile 'com.tencent.bugly:crashreport:2.4.0'
+    compile 'com.tencent.bugly:crashreport_upgrade:1.2.1'
+    //compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    //compile 'se.emilsjolander:stickylistheaders:2.7.0'
 
 
     compile fileTree(dir: 'libs', include: ['*.jar'])

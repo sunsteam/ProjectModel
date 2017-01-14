@@ -11,7 +11,8 @@ import android.util.DisplayMetrics;
 
 import com.apkfuns.logutils.LogUtils;
 import com.lzy.okgo.OkGo;
-import com.tencent.bugly.crashreport.CrashReport;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -92,9 +93,13 @@ public class App extends Application {
             //LogUtils初始化
             LogUtils.getLogConfig().configAllowLog(BuildConfig.LOG_DEBUG);
 
+            //单独使用CrashReport功能时
+            //CrashReport.initCrashReport(this, Bugly_ID, BuildConfig.LOG_DEBUG);
+            //CrashReport.setIsDevelopmentDevice(this, BuildConfig.DEBUG);
             //Bugly初始化
-            CrashReport.initCrashReport(this, Bugly_ID, BuildConfig.LOG_DEBUG);
-            CrashReport.setIsDevelopmentDevice(this, BuildConfig.DEBUG);
+            Beta.upgradeCheckPeriod = 60 * 1000;
+            Bugly.init(this, Bugly_ID, BuildConfig.LOG_DEBUG);
+            Bugly.setIsDevelopmentDevice(this, BuildConfig.DEBUG);
 
 
             OkGo.init(this);
