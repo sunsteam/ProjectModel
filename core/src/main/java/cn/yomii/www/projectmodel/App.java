@@ -21,12 +21,12 @@ import cn.yomii.www.projectmodel.net.http.HttpHelper;
 import okio.Buffer;
 
 /**
+ * 全局环境
  * Created by Yomii on 2017/1/9.
  */
-
 public class App extends Application {
 
-    private static Context sContext;
+    private static App sContext;
     private static int sMainTid;
     private static Thread sMainThread;
     private static Handler sHandler;
@@ -36,6 +36,9 @@ public class App extends Application {
         return sContext;
     }
 
+    /**
+     * @return 主线程id
+     */
     public static int getMainTid() {
         return sMainTid;
     }
@@ -81,7 +84,7 @@ public class App extends Application {
             sMainTid = Process.myTid();
             sMainThread = Thread.currentThread();
             sHandler = new Handler();
-            sContext = getApplicationContext();
+            sContext = (App) getApplicationContext();
             sMetrics = sContext.getResources().getDisplayMetrics();
 
             LogUtils.w("逻辑密度: " + sMetrics.density);

@@ -77,13 +77,13 @@ public class Info {
         CrashReport.setUserId(sPsnUid);
     }
 
-
-    public static void fillFromResponse(LoginResponse response){
+    public static void fillUserInfoAfterLogin(LoginResponse response){
         setToken(response.token);
         setPsnNo(response.no);
         setPsnUid(response.uid);
         setKind(response.kind);
     }
+
 
     public static void fillFromCache() {
         // TODO: 2017/1/10

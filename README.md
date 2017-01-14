@@ -25,12 +25,21 @@ https://github.com/jeasonlzy/okhttp-OkGo
 ### Json转换
 'com.alibaba:fastjson:1.2.8'
 
-### 异常处理
-compile 'com.tencent.bugly:crashreport:2.4.0'
+### 异常处理 and 软件升级
+compile 'com.tencent.bugly:crashreport_upgrade:1.2.1'
 
-增加Bugly异常上报SDK, 已配置完成, 默认渠道名为@string/appname。在设置sPsnUid时同步设置为userId, 设置token时作为环境变量同时设置到bugly.
+- 异常处理
+
+已配置完成, 默认渠道名为@string/appname。在设置sPsnUid时同步设置为userId, 设置token时作为环境变量同时设置到bugly.
+在project和module的build.gradle中增加了mapping插件的支持,默认关闭mapping文件的自动上传功能, 因为影响Release打包速度
+
+- 软件升级
+
+已配置完成
 
 **需要在App类中设置Bugly App Id**
+
+**需要在module的build.gradle文件中配置bugly的app_Id和app_Key**
 
 
 

@@ -23,9 +23,9 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
+ * Json格式数据回调基类
  * Created by Yomii on 2017/1/9.
  */
-
 public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T> {
 
     private BaseRequest baseRequest;
@@ -104,7 +104,7 @@ public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T
         @Override
         public void onSuccess(LoginResponse loginResponse, Call call, Response response) {
 
-            Info.fillFromResponse(loginResponse);
+            Info.fillUserInfoAfterLogin(loginResponse);
 
             if (baseRequest instanceof PostRequest) {
                 try {
