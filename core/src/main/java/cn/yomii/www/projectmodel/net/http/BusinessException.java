@@ -4,7 +4,7 @@ package cn.yomii.www.projectmodel.net.http;
  * Created by Yomii on 2017/1/10.
  */
 
-public class BussinessException extends RuntimeException {
+public class BusinessException extends RuntimeException {
 
     private int err;
 
@@ -26,7 +26,7 @@ public class BussinessException extends RuntimeException {
         this.error = error;
     }
 
-    public BussinessException(int err, String error) {
+    public BusinessException(int err, String error) {
         this.err = err;
         this.error = error;
     }

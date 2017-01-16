@@ -47,7 +47,7 @@ public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T
         if (o.err == 0)
             return o;
 
-        throw new BussinessException(o.err, o.error);
+        throw new BusinessException(o.err, o.error);
     }
 
     @NonNull
@@ -73,8 +73,8 @@ public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T
     @Override
     public void onError(Call call, Response response, Exception e) {
         super.onError(call, response, e);
-        if (e instanceof BussinessException) {
-            BussinessException re = (BussinessException) e;
+        if (e instanceof BusinessException) {
+            BusinessException re = (BusinessException) e;
             if (re.getErr() == 9984) {
                 onTokenExpired(call, response);
             } else {
@@ -85,7 +85,7 @@ public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T
 
     }
 
-    protected void onExceptionResponse(BussinessException e, Call call, Response response) {
+    protected void onExceptionResponse(BusinessException e, Call call, Response response) {
         ToastUtils.imitShowToast(e.getError());
     }
 
