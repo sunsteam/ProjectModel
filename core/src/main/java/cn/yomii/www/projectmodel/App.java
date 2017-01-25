@@ -55,6 +55,17 @@ public class App extends Application {
         return sMetrics;
     }
 
+    /**
+     * 在主线程运行任务
+     */
+    public static void runInMainThread(Runnable task) {
+        if (getMainTid() == Process.myTid()) {
+            task.run();
+        } else {
+            getHandler().post(task);
+        }
+    }
+
 
     private long startTime;
 
@@ -99,6 +110,8 @@ public class App extends Application {
             //单独使用CrashReport功能时
             //CrashReport.initCrashReport(this, Bugly_ID, BuildConfig.LOG_DEBUG);
             //CrashReport.setIsDevelopmentDevice(this, BuildConfig.DEBUG);
+            //本地崩溃处理初始化
+            CrashManager.getInstance().init();
             //Bugly初始化
             Beta.upgradeCheckPeriod = 60 * 1000;
             Bugly.init(this, Bugly_ID, BuildConfig.LOG_DEBUG);
