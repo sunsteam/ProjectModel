@@ -3,10 +3,11 @@ package cn.yomii.www.projectmodel.bean.request;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.yomii.www.frame.bean.request.RequestBean;
+
 import java.util.UUID;
 
 import cn.yomii.www.projectmodel.BuildConfig;
-import cn.yomii.www.projectmodel.Info;
 import cn.yomii.www.projectmodel.utils.SpfUtils;
 
 /**
@@ -30,6 +31,10 @@ public class LoginRequest extends RequestBean {
         this.uid = uid;
         this.pwd = pwd;
 
+        setupImei();
+    }
+
+    private void setupImei() {
         SharedPreferences user = SpfUtils.getUser();
         imei = user.getString(SpfUtils.USER_IMEI, "");
         if (TextUtils.isEmpty(imei)) {
@@ -44,7 +49,7 @@ public class LoginRequest extends RequestBean {
      */
     private LoginRequest() {
         super("app_login");
-        this.imei = Info.getImei();
+        setupImei();
         SharedPreferences user = SpfUtils.getUser();
         this.pwd = user.getString(SpfUtils.USER_PWD, "");
         if (TextUtils.isEmpty(pwd)) {

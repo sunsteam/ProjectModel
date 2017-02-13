@@ -4,16 +4,13 @@ import com.tencent.bugly.crashreport.CrashReport;
 
 import cn.yomii.www.projectmodel.bean.response.LoginResponse;
 
+
 /**
  * 储存用户相关全局信息
  * Created by Yomii on 2017/1/10.
  */
 public class Info {
 
-    /**
-     * 临时用户UUID
-     */
-    private static String sImei = "";
     /**
      * 服务器会话token
      */
@@ -39,10 +36,6 @@ public class Info {
         sToken = token;
         CrashReport.putUserData(App.getContext(),"token",sToken);
     }
-
-    public static String getImei() {return sImei;}
-
-    public static void setImei(String imei) {sImei = imei;}
 
     public static void setKind(int kind) {
         sKind = kind;

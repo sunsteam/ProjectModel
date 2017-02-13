@@ -7,6 +7,8 @@ import com.apkfuns.logutils.LogUtils;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.request.BaseRequest;
 import com.lzy.okgo.request.PostRequest;
+import com.yomii.www.frame.bean.response.ResponseBean;
+import com.yomii.www.frame.net.http.BusinessException;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -17,7 +19,6 @@ import cn.yomii.www.projectmodel.Info;
 import cn.yomii.www.projectmodel.R;
 import cn.yomii.www.projectmodel.bean.request.LoginRequest;
 import cn.yomii.www.projectmodel.bean.response.LoginResponse;
-import cn.yomii.www.projectmodel.bean.response.ResponseBean;
 import cn.yomii.www.projectmodel.utils.ToastUtils;
 import okhttp3.Call;
 import okhttp3.Response;
@@ -93,7 +94,7 @@ public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T
         if (tryCount >= 1) {
             LogUtils.i("重试登陆--" + tryCount);
             tryCount--;
-            HttpHelper.enqueue(LoginRequest.getRetryLoginRequest(), "login", new RetryLoginCallBack());
+            HttpHelper.post(LoginRequest.getRetryLoginRequest(), "login").execute(new RetryLoginCallBack());
         } else {
             ToastUtils.imitShowToast(R.string.error_9984_token_expired);
         }
@@ -124,7 +125,7 @@ public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T
                     }
                     LogUtils.i("新body--" + jsonStr);
 
-                    HttpHelper.enqueue(jsonStr, call.request().tag(), JsonCallback.this);
+                    HttpHelper.post(jsonStr, call.request().tag()).execute(JsonCallback.this);
                 } catch (NoSuchFieldException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {

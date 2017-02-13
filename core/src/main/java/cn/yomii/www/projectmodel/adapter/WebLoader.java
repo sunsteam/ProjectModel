@@ -3,9 +3,10 @@ package cn.yomii.www.projectmodel.adapter;
 import android.support.annotation.NonNull;
 
 import com.lzy.okgo.request.BaseRequest;
+import com.yomii.www.frame.adapter.AbsLoader;
+import com.yomii.www.frame.bean.request.ListRequestBean;
+import com.yomii.www.frame.bean.response.ListResponseBean;
 
-import cn.yomii.www.projectmodel.bean.request.ListRequestBean;
-import cn.yomii.www.projectmodel.bean.response.ListResponseBean;
 import cn.yomii.www.projectmodel.net.http.HttpHelper;
 import cn.yomii.www.projectmodel.net.http.JsonCallback;
 import okhttp3.Call;
@@ -30,7 +31,7 @@ public class WebLoader<R extends ListRequestBean, Z extends ListResponseBean>
     public void loadNextPage() {
         state = STATE_LOADING;
         request.pageindex++;
-        HttpHelper.enqueue(request, this, callback);
+        HttpHelper.post(request, this).execute(callback);
     }
 
     class ListCallback extends JsonCallback<Z> {
