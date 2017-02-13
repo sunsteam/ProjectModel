@@ -3,7 +3,7 @@ package cn.yomii.www.projectmodel.bean.response;
 
 import java.util.List;
 
-import cn.yomii.www.projectmodel.bean.Entity;
+import cn.yomii.www.projectmodel.bean.ModelEntity;
 
 /**
  * 数据集请求封装基类
@@ -21,5 +21,5 @@ public abstract class ListResponseBean extends ResponseBean {
      */
     public int pageindex;
 
-    public abstract <T extends Entity> List<T> getRecords();
+    public abstract <T extends ModelEntity> List<T> getRecords();
 }

@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import cn.yomii.www.projectmodel.adapter.Loader;
 import cn.yomii.www.projectmodel.adapter.list.viewholder.LoadMoreViewHolder;
-import cn.yomii.www.projectmodel.bean.Entity;
+import cn.yomii.www.projectmodel.bean.ModelEntity;
 import cn.yomii.www.projectmodel.bean.request.ListRequestBean;
 import cn.yomii.www.projectmodel.bean.response.ListResponseBean;
 
@@ -15,7 +15,7 @@ import cn.yomii.www.projectmodel.bean.response.ListResponseBean;
  * 滑动到底部自动加载下一页的ListView Adapter
  * Created by Yomii on 2017/1/12.
  */
-public abstract class AutoLoadListAdapter<T extends Entity, R extends ListRequestBean,
+public abstract class AutoLoadListAdapter<T extends ModelEntity, R extends ListRequestBean,
         Z extends ListResponseBean> extends LoadListAdapter<T, R, Z> {
 
     public AutoLoadListAdapter(@NonNull R request, @NonNull Loader<R, Z> loaderImp) {

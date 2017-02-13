@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import cn.yomii.www.projectmodel.adapter.Loader;
-import cn.yomii.www.projectmodel.bean.Entity;
+import cn.yomii.www.projectmodel.bean.ModelEntity;
 import cn.yomii.www.projectmodel.bean.request.ListRequestBean;
 import cn.yomii.www.projectmodel.bean.response.ListResponseBean;
 
@@ -21,7 +21,7 @@ import static cn.yomii.www.projectmodel.adapter.Loader.STATE_NOMORE;
  * @param <Z> 返回数据包装类
  *            Created by Yomii on 2017/1/11.
  */
-public abstract class LoadListAdapter<T extends Entity, R extends ListRequestBean, Z extends ListResponseBean>
+public abstract class LoadListAdapter<T extends ModelEntity, R extends ListRequestBean, Z extends ListResponseBean>
         extends BaseListAdapter<T>
         implements Loader.OnLoadListener<Z> {
 

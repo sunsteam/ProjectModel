@@ -7,6 +7,6 @@ import java.io.Serializable;
  * <p/>
  * Created by Yomii on 2016/3/9.
  */
-public abstract class Entity implements Serializable {
+public abstract class ModelEntity implements Serializable {
 
 }
