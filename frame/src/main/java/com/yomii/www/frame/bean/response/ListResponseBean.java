@@ -21,6 +21,6 @@ public abstract class ListResponseBean<T extends ModelEntity> extends ResponseBe
      */
     public int pageindex;
 
-    public List<T> records;
+    public abstract List<T> getRecords();
 
 }

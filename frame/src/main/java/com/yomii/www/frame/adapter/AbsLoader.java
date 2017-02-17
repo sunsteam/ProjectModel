@@ -28,8 +28,8 @@ public abstract class AbsLoader<R extends ListRequestBean, Z extends ListRespons
     protected OnLoadListener<Z> listener;
 
     public AbsLoader() {
-        Type[] type = getClass().getGenericInterfaces();
-        if (!(type[0] instanceof ParameterizedType))
+        Type type = getClass().getGenericSuperclass();
+        if (!(type instanceof ParameterizedType))
             throw new IllegalStateException("泛型类型未定义");
     }
 

@@ -35,13 +35,17 @@ public abstract class LoadRecyclerAdapter<T extends ModelEntity, R extends ListR
         this.loaderImp.setRequest(request);
     }
 
+    public Loader<R, Z> getLoader(){
+        return loaderImp;
+    }
+
     /**
      * @param response 根据返回的ListResponse内容自动更新数据列表 固定写法
      */
     protected void checkState(Z response) {
         if (response.pageindex == 0)
             dataList.clear();
-        List<T> records = response.records;
+        List<T> records = response.getRecords();
         if (records != null && records.size() > 0) {
             loaderImp.setState(records.size() < loaderImp.getRequest().pagesize ? STATE_NOMORE : STATE_HASMORE);
             //List增加数据
