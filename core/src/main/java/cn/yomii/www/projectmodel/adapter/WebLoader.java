@@ -3,14 +3,15 @@ package cn.yomii.www.projectmodel.adapter;
 import android.support.annotation.NonNull;
 
 import com.lzy.okgo.request.BaseRequest;
-import com.yomii.www.frame.adapter.AbsLoader;
-import com.yomii.www.frame.bean.request.ListRequestBean;
-import com.yomii.www.frame.bean.response.ListResponseBean;
 
+import cn.yomii.www.frame.adapter.AbsLoader;
+import cn.yomii.www.frame.bean.request.ListRequestBean;
+import cn.yomii.www.frame.bean.response.ListResponseBean;
 import cn.yomii.www.projectmodel.net.http.HttpHelper;
 import cn.yomii.www.projectmodel.net.http.JsonCallback;
 import okhttp3.Call;
 import okhttp3.Response;
+
 
 /**
  * 从网络获取列表数据的获取器实现
@@ -19,22 +20,25 @@ import okhttp3.Response;
 public class WebLoader<R extends ListRequestBean, Z extends ListResponseBean>
         extends AbsLoader<R, Z> {
 
-    protected ListCallback callback;
+    private ListCallback callback;
 
     @Override
-    public void setRequest(@NonNull R request) {
-        this.request = request;
-        callback = new ListCallback();
+    public void setRequestAndResponseType(@NonNull R request, @NonNull Class<Z> clazz) {
+        super.setRequestAndResponseType(request, clazz);
+        callback = new ListCallback(responseType);
     }
 
     @Override
-    public void loadNextPage() {
+    public void loadPage() {
         state = STATE_LOADING;
-        request.pageindex++;
         HttpHelper.post(request, this).execute(callback);
     }
 
     class ListCallback extends JsonCallback<Z> {
+
+        public ListCallback(Class<?> clazz) {
+            super(clazz);
+        }
 
         @Override
         public void onBefore(BaseRequest baseRequest) {
@@ -46,10 +50,10 @@ public class WebLoader<R extends ListRequestBean, Z extends ListResponseBean>
 
         @Override
         public void onSuccess(Z z, Call call, Response response) {
-            if (listener != null && listener.dataFilter(z)) {
+            if (adapter != null && adapter.dataFilter(z)) {
                 //更新页数
-                request.pageindex = z.pageindex;
-                listener.onLoadSuccess(z);
+                request.pageindex++;
+                adapter.onLoadSuccess(z);
             }
         }
 
@@ -61,4 +65,6 @@ public class WebLoader<R extends ListRequestBean, Z extends ListResponseBean>
             }
         }
     }
+
+
 }

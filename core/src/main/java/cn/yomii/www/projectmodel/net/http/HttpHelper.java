@@ -6,7 +6,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.request.BaseBodyRequest;
 import com.lzy.okgo.request.PostRequest;
-import com.yomii.www.frame.bean.request.RequestBean;
+import cn.yomii.www.frame.bean.request.RequestBean;
 
 /**
  * Http请求二次封装

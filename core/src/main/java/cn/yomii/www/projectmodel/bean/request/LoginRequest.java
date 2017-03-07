@@ -3,14 +3,14 @@ package cn.yomii.www.projectmodel.bean.request;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.yomii.www.frame.bean.request.RequestBean;
-
 import java.util.UUID;
 
+import cn.yomii.www.frame.bean.request.RequestBean;
 import cn.yomii.www.projectmodel.BuildConfig;
 import cn.yomii.www.projectmodel.utils.SpfUtils;
 
 /**
+ * 登陆
  * Created by Yomii on 2016/6/30.
  */
 public class LoginRequest extends RequestBean {
@@ -27,7 +27,7 @@ public class LoginRequest extends RequestBean {
      * 用于正常登陆, imei会从spf获取, 没有则新建
      */
     public LoginRequest(String uid, String pwd) {
-        super("app_login");
+        super("app_login",null);
         this.uid = uid;
         this.pwd = pwd;
 
@@ -48,7 +48,7 @@ public class LoginRequest extends RequestBean {
      * 只用于自动登录
      */
     private LoginRequest() {
-        super("app_login");
+        super("app_login",null);
         setupImei();
         SharedPreferences user = SpfUtils.getUser();
         this.pwd = user.getString(SpfUtils.USER_PWD, "");

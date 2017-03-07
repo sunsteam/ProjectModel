@@ -7,14 +7,13 @@ import com.apkfuns.logutils.LogUtils;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.request.BaseRequest;
 import com.lzy.okgo.request.PostRequest;
-import com.yomii.www.frame.bean.response.ResponseBean;
-import com.yomii.www.frame.net.http.BusinessException;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import cn.yomii.www.frame.bean.response.ResponseBean;
 import cn.yomii.www.projectmodel.Info;
 import cn.yomii.www.projectmodel.R;
 import cn.yomii.www.projectmodel.bean.request.LoginRequest;
@@ -31,6 +30,14 @@ public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T
 
     private BaseRequest baseRequest;
     private int tryCount = 3;
+    private Class<?> clazz;
+
+    public JsonCallback(Class<?> clazz) {
+        this.clazz = clazz;
+    }
+
+    public JsonCallback() {
+    }
 
     @Override
     public void onBefore(BaseRequest request) {
@@ -41,9 +48,15 @@ public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T
     @Override
     public T convertSuccess(Response response) throws Exception {
 
-        ParameterizedType genType = (ParameterizedType) getClass().getGenericSuperclass();
-        Type[] params = genType.getActualTypeArguments();
-        T o = parseJson(getBodyString(response), params[0]);
+        Type type;
+        if (clazz != null){
+            type = clazz;
+        }else {
+            ParameterizedType genType = (ParameterizedType) getClass().getGenericSuperclass();
+            type = genType.getActualTypeArguments()[0];
+        }
+
+        T o = parseJson(getBodyString(response), type);
 
         if (o.err == 0)
             return o;
