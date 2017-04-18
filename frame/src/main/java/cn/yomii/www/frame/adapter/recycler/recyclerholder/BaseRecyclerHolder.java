@@ -23,11 +23,15 @@ public abstract class BaseRecyclerHolder<K> extends RecyclerView.ViewHolder {
         initView(itemView);
     }
 
-    protected K data;
-    protected Context context;
+    private K data;
+    private Context context;
 
     public K getData() {
         return data;
+    }
+
+    protected Context getContext() {
+        return context;
     }
 
     public void setData(K data, int position) {
