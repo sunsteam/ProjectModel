@@ -4,10 +4,9 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cn.yomii.www.frame.adapter.Loader;
+import cn.yomii.www.frame.adapter.ListLoader;
+import cn.yomii.www.frame.adapter.LoaderContract;
 import cn.yomii.www.frame.adapter.list.viewholder.LoadMoreViewHolder;
-import cn.yomii.www.frame.bean.ModelEntity;
-import cn.yomii.www.frame.bean.request.ListRequestBean;
 import cn.yomii.www.frame.bean.response.ListResponseBean;
 
 
@@ -15,10 +14,9 @@ import cn.yomii.www.frame.bean.response.ListResponseBean;
  * 滑动到底部自动加载下一页的ListView Adapter
  * Created by Yomii on 2017/1/12.
  */
-public abstract class AutoLoadListAdapter<T extends ModelEntity, R extends ListRequestBean,
-        Z extends ListResponseBean<T>> extends LoadListAdapter<T, R, Z> {
+public abstract class AutoLoadListAdapter<T, Z extends ListResponseBean<T>> extends LoadListAdapter<T, Z> {
 
-    public AutoLoadListAdapter( @NonNull Loader<R,Z> loaderImp) {
+    public AutoLoadListAdapter(@NonNull ListLoader<?, Z> loaderImp) {
         super(loaderImp);
     }
 
@@ -59,23 +57,24 @@ public abstract class AutoLoadListAdapter<T extends ModelEntity, R extends ListR
 
     //--------------------------------更新底布局--------------------------------------//
 
-    protected LoadMoreViewHolder mFootViewholder;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         //最后一条是底布局
+        LoadMoreViewHolder mFootViewHolder;
         if (position == getCount() - 1) {
             if (convertView == null) {
-                mFootViewholder = new LoadMoreViewHolder(parent);
+                mFootViewHolder = new LoadMoreViewHolder(parent);
             } else {
-                mFootViewholder = (LoadMoreViewHolder) convertView.getTag();
+                mFootViewHolder = (LoadMoreViewHolder) convertView.getTag();
             }
-            if (loaderImp.getState() == Loader.STATE_HASMORE)
-                loaderImp.loadPage(); //获取下一页
+            if (loaderImp.getState() == LoaderContract.STATE_HASMORE)
+                loaderImp.load(); //获取下一页
 
-            mFootViewholder.setData(loaderImp.getState(), position);
+            mFootViewHolder.setData(loaderImp.getState(), position);
 
-            return mFootViewholder.getRootView();
+            return mFootViewHolder.getRootView();
         }
 
         return super.getView(position, convertView, parent);

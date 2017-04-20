@@ -1,4 +1,4 @@
-package cn.yomii.www.frame.adapter.list;
+package cn.yomii.www.frame.base;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -6,8 +6,6 @@ import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.yomii.www.frame.adapter.list.viewholder.BaseViewHolder;
 
 
 /**

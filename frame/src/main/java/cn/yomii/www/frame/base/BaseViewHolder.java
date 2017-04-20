@@ -1,4 +1,4 @@
-package cn.yomii.www.frame.adapter.list.viewholder;
+package cn.yomii.www.frame.base;
 
 
 import android.content.Context;
@@ -16,16 +16,16 @@ import android.view.ViewGroup;
  */
 public abstract class BaseViewHolder<K> {
 
-    protected View mView;
-    protected K data;
-    protected int position;
-    protected Context mContext;
-    protected LayoutInflater mInflater;
+    private View mView;
+    private K data;
+    private int position;
+    private Context context;
+    private LayoutInflater inflater;
 
     public BaseViewHolder(ViewGroup parent) {
-        this.mContext = parent.getContext();
-        mInflater = LayoutInflater.from(mContext);
-        mView = initView(mContext, parent);
+        this.context = parent.getContext();
+        inflater = LayoutInflater.from(context);
+        mView = initView(context, parent);
         if (mView == null) {
             throw new RuntimeException("None from initView");
         }
@@ -50,6 +50,14 @@ public abstract class BaseViewHolder<K> {
 
     public int getPosition() {
         return position;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public LayoutInflater getInflater() {
+        return inflater;
     }
 
     /**

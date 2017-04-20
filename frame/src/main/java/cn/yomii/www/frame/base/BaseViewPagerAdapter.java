@@ -1,4 +1,4 @@
-package cn.yomii.www.frame.adapter.viewpager;
+package cn.yomii.www.frame.base;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;

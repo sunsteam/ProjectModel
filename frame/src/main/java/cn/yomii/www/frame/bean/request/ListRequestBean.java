@@ -2,32 +2,49 @@ package cn.yomii.www.frame.bean.request;
 
 
 /**
- * 数据集合请求封装基类
+ * 数据集合请求封装
  * Created by Yomii on 2016/9/5.
+ * @param <R>   具体请求数据封装
  */
-public class ListRequestBean extends RequestBean {
+public class ListRequestBean<R> {
 
-    public int pagesize;
+    private int pageIndex;
 
-    public int pageindex;
+    private int pageSize;
 
-    /**
-     * 0 升序 1 降序
-     */
-    public int desc = 1;
-
-    public ListRequestBean(String cmd, String newToken) {
-        this(cmd, 15, 0, 1, newToken);
+    public int getPageIndex() {
+        return pageIndex;
     }
 
-    public ListRequestBean(String cmd, int pagesize, String newToken) {
-        this(cmd, pagesize, 0, 1, newToken);
+    public void setPageIndex(int pageIndex) {
+        this.pageIndex = pageIndex;
     }
 
-    public ListRequestBean(String cmd, int pagesize, int pageindex, int desc, String newToken) {
-        super(cmd,newToken);
-        this.pagesize = pagesize;
-        this.pageindex = pageindex;
-        this.desc = desc;
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    R request;
+
+    public R getRequest() {
+        return request;
+    }
+
+    public void setRequest(R request) {
+        this.request = request;
+    }
+
+    public ListRequestBean(int pageIndex, int pageSize) {
+        this(pageIndex, pageSize, null);
+    }
+
+    public ListRequestBean(int pageIndex, int pageSize, R request) {
+        this.pageIndex = pageIndex;
+        this.pageSize = pageSize;
+        this.request = request;
     }
 }

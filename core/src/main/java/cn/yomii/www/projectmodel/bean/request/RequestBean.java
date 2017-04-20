@@ -1,4 +1,4 @@
-package cn.yomii.www.frame.bean.request;
+package cn.yomii.www.projectmodel.bean.request;
 
 
 import cn.yomii.www.frame.bean.ModelEntity;

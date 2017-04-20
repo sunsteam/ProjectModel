@@ -6,7 +6,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.request.BaseBodyRequest;
 import com.lzy.okgo.request.PostRequest;
-import cn.yomii.www.frame.bean.request.RequestBean;
+import cn.yomii.www.projectmodel.bean.request.RequestBean;
 
 /**
  * Http请求二次封装
@@ -29,7 +29,7 @@ public class HttpHelper {
     /**
      * postBean
      */
-    public static BaseBodyRequest<PostRequest> post(RequestBean request, Object tag) {
+    public static BaseBodyRequest<PostRequest> post(Object request, Object tag) {
         String requestJsonString = JSON.toJSONString(request);
         return post(requestJsonString, tag);
     }

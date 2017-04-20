@@ -1,9 +1,7 @@
-package cn.yomii.www.frame.adapter.recycler;
+package cn.yomii.www.frame.base;
 
 
 import android.support.v7.widget.RecyclerView;
-
-import cn.yomii.www.frame.adapter.recycler.recyclerholder.BaseRecyclerHolder;
 
 import java.util.ArrayList;
 import java.util.List;

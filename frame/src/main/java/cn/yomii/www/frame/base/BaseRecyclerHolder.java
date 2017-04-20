@@ -1,4 +1,4 @@
-package cn.yomii.www.frame.adapter.recycler.recyclerholder;
+package cn.yomii.www.frame.base;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;

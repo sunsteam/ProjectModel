@@ -2,13 +2,18 @@ package cn.yomii.www.frame.adapter.list.viewholder;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import cn.yomii.www.frame.R;
-import cn.yomii.www.frame.adapter.Loader;
+import cn.yomii.www.frame.adapter.LoaderContract;
+import cn.yomii.www.frame.base.BaseViewHolder;
 
 
 public class LoadMoreViewHolder extends BaseViewHolder<Integer> {
@@ -22,28 +27,44 @@ public class LoadMoreViewHolder extends BaseViewHolder<Integer> {
 
     @Override
     public View initView(Context context, ViewGroup parent) {
-        View view = mInflater.inflate(R.layout.common_load_more, parent, false);
-        mProgressBar = (ProgressBar) view.findViewById(R.id.progressbar);
-        mTextView = (TextView) view.findViewById(R.id.text);
-        return view;
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        linearLayout.setGravity(Gravity.CENTER);
+        linearLayout.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
+
+        mProgressBar = new ProgressBar(getContext());
+
+        mTextView = new TextView(getContext());
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-2, -2);
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, displayMetrics);
+        layoutParams.leftMargin = margin;
+        layoutParams.rightMargin = margin;
+        mTextView.setLayoutParams(layoutParams);
+        mTextView.setText("加载中...");
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+
+        linearLayout.addView(mProgressBar);
+        linearLayout.addView(mTextView);
+        return linearLayout;
     }
 
     @Override
     public void setDataToView(Integer data, int position) {
         switch (data) {
-            case Loader.STATE_EMPTY:
+            case LoaderContract.STATE_EMPTY:
                 setInfo(false, R.string.load_empty);
                 break;
-            case Loader.STATE_ERROR:
+            case LoaderContract.STATE_ERROR:
                 setInfo(false, R.string.load_error);
                 break;
-            case Loader.STATE_DATASOURCEERROR:
+            case LoaderContract.STATE_DATASOURCEERROR:
                 setInfo(false, R.string.list_server_error);
                 break;
-            case Loader.STATE_LOADING:
+            case LoaderContract.STATE_LOADING:
                 setInfo(true, R.string.load_more);
                 break;
-            case Loader.STATE_NOMORE:
+            case LoaderContract.STATE_NOMORE:
                 setInfo(false, R.string.load_nomore);
                 break;
         }

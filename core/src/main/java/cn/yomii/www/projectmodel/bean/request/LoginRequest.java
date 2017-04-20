@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import java.util.UUID;
 
-import cn.yomii.www.frame.bean.request.RequestBean;
 import cn.yomii.www.projectmodel.BuildConfig;
 import cn.yomii.www.projectmodel.utils.SpfUtils;
 

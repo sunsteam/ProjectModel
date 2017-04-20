@@ -19,7 +19,6 @@ import java.util.logging.Level;
 
 import cn.yomii.www.frame.ActivityLifeCallback;
 import cn.yomii.www.projectmodel.net.http.HttpHelper;
-import okio.Buffer;
 
 /**
  * 全局环境
@@ -124,8 +123,8 @@ public class App extends Application {
                     .setConnectTimeout(HttpHelper.DEFAULT_MILLISECONDS)               //全局的连接超时时间
                     .setReadTimeOut(HttpHelper.DEFAULT_MILLISECONDS)                  //全局的读取超时时间
                     .setWriteTimeOut(HttpHelper.DEFAULT_MILLISECONDS)               //全局的写入超时时间
-                    .debug("OkGo", Level.INFO, true)                                //是否打开调试
-                    .setCertificates(new Buffer().writeUtf8(CRT).inputStream());    //证书
+                    .debug("OkGo", Level.INFO, true)    ;                            //是否打开调试
+//                    .setCertificates(new Buffer().writeUtf8(CRT).inputStream());    //证书
 
 
         }
