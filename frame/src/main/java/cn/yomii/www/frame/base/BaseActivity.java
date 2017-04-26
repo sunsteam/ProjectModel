@@ -1,4 +1,4 @@
-package cn.yomii.www.frame.ui.activity;
+package cn.yomii.www.frame.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

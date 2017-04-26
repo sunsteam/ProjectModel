@@ -5,9 +5,10 @@ import android.support.annotation.NonNull;
 import com.lzy.okgo.request.BaseRequest;
 
 import cn.yomii.www.frame.adapter.ListLoader;
-import cn.yomii.www.frame.bean.response.ListResponseBean;
+import cn.yomii.www.frame.bean.ListRequest;
+import cn.yomii.www.projectmodel.bean.response.ListResponseBean;
 import cn.yomii.www.projectmodel.net.http.HttpHelper;
-import cn.yomii.www.projectmodel.net.http.JsonCallback;
+import cn.yomii.www.projectmodel.net.http.ListJsonCallback;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -20,7 +21,11 @@ public class WebLoader<R, Z extends ListResponseBean> extends ListLoader<R, Z> {
 
     private ListCallback callback;
 
-    protected CustomAspectListener listener;
+    private CustomAspectListener listener;
+
+    public WebLoader(@NonNull ListRequest<R> request) {
+        super(request);
+    }
 
     @Override
     public OnLoadAspectListener getLoadListener() {
@@ -50,7 +55,7 @@ public class WebLoader<R, Z extends ListResponseBean> extends ListLoader<R, Z> {
         HttpHelper.post(request, this).execute(callback);
     }
 
-    class ListCallback extends JsonCallback<Z> {
+    class ListCallback extends ListJsonCallback<Z> {
 
         public ListCallback(Class<?> clazz) {
             super(clazz);
@@ -68,10 +73,10 @@ public class WebLoader<R, Z extends ListResponseBean> extends ListLoader<R, Z> {
         public void onSuccess(Z z, Call call, Response response) {
             if (adapter != null && adapter.onDataFilter(z)) {
                 //更新页数
-                request.setPageIndex(z.pageindex);
+                request.setPageIndex(z.getPageIndex());
 
                 if (listener != null)
-                    listener.onDataFiltered(z.pageindex);
+                    listener.onDataFiltered(z.getPageIndex());
                 adapter.onFilterSuccess(z);
             }
         }

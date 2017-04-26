@@ -10,14 +10,13 @@ import com.lzy.okgo.request.PostRequest;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import cn.yomii.www.projectmodel.Info;
 import cn.yomii.www.projectmodel.R;
 import cn.yomii.www.projectmodel.bean.request.LoginRequest;
+import cn.yomii.www.projectmodel.bean.response.ListResponseBean;
 import cn.yomii.www.projectmodel.bean.response.LoginResponse;
-import cn.yomii.www.projectmodel.bean.response.ResponseBean;
 import cn.yomii.www.projectmodel.utils.ToastUtils;
 import okhttp3.Call;
 import okhttp3.Response;
@@ -26,17 +25,17 @@ import okhttp3.Response;
  * Json格式数据回调基类
  * Created by Yomii on 2017/1/9.
  */
-public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T> {
+public abstract class ListJsonCallback<T extends ListResponseBean> extends AbsCallback<T> {
 
     private BaseRequest baseRequest;
     private int tryCount = 3;
     private Class<?> clazz;
 
-    public JsonCallback(Class<?> clazz) {
+    public ListJsonCallback(Class<?> clazz) {
         this.clazz = clazz;
     }
 
-    public JsonCallback() {
+    public ListJsonCallback() {
     }
 
     @Override
@@ -48,20 +47,12 @@ public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T
     @Override
     public T convertSuccess(Response response) throws Exception {
 
-        Type type;
-        if (clazz != null){
-            type = clazz;
-        }else {
-            ParameterizedType genType = (ParameterizedType) getClass().getGenericSuperclass();
-            type = genType.getActualTypeArguments()[0];
-        }
+        T o = parseJson(getBodyString(response), clazz);
 
-        T o = parseJson(getBodyString(response), type);
-
-        if (o.err == 0)
+        if (o.getErr() == 0)
             return o;
 
-        throw new BusinessException(o.err, o.error);
+        throw new BusinessException(o.getErr(), o.getError());
     }
 
     @NonNull
@@ -138,7 +129,7 @@ public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T
                     }
                     LogUtils.i("新body--" + jsonStr);
 
-                    HttpHelper.post(jsonStr, call.request().tag()).execute(JsonCallback.this);
+                    HttpHelper.post(jsonStr, call.request().tag()).execute(ListJsonCallback.this);
                 } catch (NoSuchFieldException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {

@@ -1,13 +1,11 @@
-package cn.yomii.www.frame.bean.response;
+package cn.yomii.www.projectmodel.bean.response;
 
-
-import cn.yomii.www.frame.bean.ModelEntity;
 
 /**
  * 请求结果封装的基类
  * Created by Yomii on 2016/3/10.
  */
-public class ResponseBean extends ModelEntity {
+public class ResponseBean{
 
     /**
      * 状态码

@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.yomii.www.frame.bean.PageFragInfo;
-
 /**
  * 用于ViewPager+Fragment组合滑动页面, 布局包含TabLayout可以自动配置标题头部
  *

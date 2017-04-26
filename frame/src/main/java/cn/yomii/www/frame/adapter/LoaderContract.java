@@ -5,7 +5,7 @@ import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import cn.yomii.www.frame.bean.request.ListRequestBean;
+import cn.yomii.www.frame.bean.ListRequest;
 
 /**
  * 列表数据获取器接口
@@ -57,7 +57,7 @@ public interface LoaderContract {
          * @param state   请求前的状态
          * @param request 当前请求
          */
-        void onLoadBefore(int state, ListRequestBean request);
+        void onLoadBefore(int state, ListRequest request);
 
         /**
          * 请求完成后调用,无论成功失败
@@ -88,7 +88,7 @@ public interface LoaderContract {
         /**
          * 获取到符合条件的数据
          *
-         * @param response ListResponseBean
+         * @param response ListResponse
          */
         void onFilterSuccess(X response);
     }

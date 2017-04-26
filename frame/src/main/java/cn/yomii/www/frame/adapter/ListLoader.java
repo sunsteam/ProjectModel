@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import cn.yomii.www.frame.bean.request.ListRequestBean;
+import cn.yomii.www.frame.bean.ListRequest;
 
 
 /**
@@ -28,32 +28,27 @@ public abstract class ListLoader<R, Z> implements LoaderContract {
      */
     private int originIndex;
 
-    protected ListRequestBean<R> request;
+    protected ListRequest<R> request;
 
     private Class<Z> responseType;
 
-    protected OnLoadAspectListener listener;
+    private OnLoadAspectListener listener;
 
     protected LoaderAdapter<Z> adapter;
 
-    public ListLoader() {
-        this(0, 15);
-    }
 
-    public ListLoader(int index, int pageSize) {
+    public ListLoader(@NonNull ListRequest<R> request) {
         Type type = getClass().getGenericSuperclass();
         if (!(type instanceof ParameterizedType))
             throw new IllegalStateException("泛型类型未定义");
 
-        originIndex = index;
-        request = new ListRequestBean<>(index, pageSize);
+        originIndex = request.getPageIndex();
+        this.request = request;
     }
 
-    public void refreshData() {
-
+    public void resetToOriginIndex() {
         state = STATE_HASMORE;
         request.setPageIndex(originIndex);
-        load();
     }
 
     @NonNull

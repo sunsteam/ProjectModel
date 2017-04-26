@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import cn.yomii.www.frame.bean.response.ResponseBean;
+import cn.yomii.www.projectmodel.bean.response.ResponseBean;
 import okhttp3.Response;
 
 /**

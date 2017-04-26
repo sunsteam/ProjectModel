@@ -3,11 +3,11 @@ package cn.yomii.www.projectmodel;
 import com.apkfuns.logutils.LogUtils;
 
 import cn.yomii.www.frame.adapter.LoaderContract;
-import cn.yomii.www.frame.bean.request.ListRequestBean;
-import cn.yomii.www.frame.bean.response.ListResponseBean;
-import cn.yomii.www.frame.ui.activity.BaseActivity;
+import cn.yomii.www.frame.base.BaseActivity;
+import cn.yomii.www.frame.bean.ListRequest;
 import cn.yomii.www.projectmodel.adapter.CustomAspectListener;
 import cn.yomii.www.projectmodel.adapter.WebLoader;
+import cn.yomii.www.projectmodel.bean.response.ListResponseBean;
 
 /**
  * Created by Yomii on 2017/4/20.
@@ -18,7 +18,7 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         setContentView(R.layout.main_act);
 
-        WebLoader<Object, ListResponseBean> loader = new WebLoader<>();
+        WebLoader<Object, ListResponseBean> loader = new WebLoader<>(new ListRequest<>());
         CustomAspectListener customAspectListener = new CustomAspectListener() {
             @Override
             public void onDataFiltered(int index) {
@@ -26,7 +26,7 @@ public class MainActivity extends BaseActivity {
             }
 
             @Override
-            public void onLoadBefore(int state, ListRequestBean request) {
+            public void onLoadBefore(int state, ListRequest request) {
 
             }
 

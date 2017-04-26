@@ -1,4 +1,4 @@
-package cn.yomii.www.frame.adapter.list.viewholder;
+package cn.yomii.www.frame.adapter;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import cn.yomii.www.frame.R;
-import cn.yomii.www.frame.adapter.LoaderContract;
 import cn.yomii.www.frame.base.BaseViewHolder;
 
 

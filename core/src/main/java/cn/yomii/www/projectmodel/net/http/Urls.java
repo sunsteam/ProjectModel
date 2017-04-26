@@ -1,6 +1,6 @@
 package cn.yomii.www.projectmodel.net.http;
 
-import cn.yomii.www.frame.bean.response.ResponseBean;
+import cn.yomii.www.projectmodel.bean.response.ResponseBean;
 
 import cn.yomii.www.projectmodel.BuildConfig;
 

@@ -1,12 +1,13 @@
-package cn.yomii.www.frame.bean.request;
+package cn.yomii.www.frame.bean;
 
 
 /**
  * 数据集合请求封装
  * Created by Yomii on 2016/9/5.
- * @param <R>   具体请求数据封装
+ *
+ * @param <R> 具体请求数据封装
  */
-public class ListRequestBean<R> {
+public class ListRequest<R> {
 
     private int pageIndex;
 
@@ -28,7 +29,7 @@ public class ListRequestBean<R> {
         this.pageSize = pageSize;
     }
 
-    R request;
+    private R request;
 
     public R getRequest() {
         return request;
@@ -38,13 +39,23 @@ public class ListRequestBean<R> {
         this.request = request;
     }
 
-    public ListRequestBean(int pageIndex, int pageSize) {
+    public ListRequest() {
+        setPageSize(15);
+    }
+
+    public ListRequest(int pageIndex, int pageSize) {
         this(pageIndex, pageSize, null);
     }
 
-    public ListRequestBean(int pageIndex, int pageSize, R request) {
-        this.pageIndex = pageIndex;
-        this.pageSize = pageSize;
-        this.request = request;
+    public ListRequest(int pageIndex, int pageSize, R request) {
+        setPageIndex(pageIndex);
+        setPageSize(pageSize);
+        setRequest(request);
+    }
+
+    @Override
+    public String toString() {
+        return "\"pageIndex\":" + getPageIndex() +
+                ",\"pageSize\":" + getPageSize() + ',';
     }
 }

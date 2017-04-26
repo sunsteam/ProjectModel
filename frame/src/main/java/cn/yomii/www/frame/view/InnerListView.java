@@ -1,4 +1,4 @@
-package cn.yomii.www.frame.ui.customview;
+package cn.yomii.www.frame.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

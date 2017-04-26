@@ -1,4 +1,4 @@
-package cn.yomii.www.frame.bean;
+package cn.yomii.www.projectmodel.adapter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

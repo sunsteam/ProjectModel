@@ -1,20 +1,17 @@
-package cn.yomii.www.frame.adapter.list;
+package cn.yomii.www.frame.adapter;
 
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cn.yomii.www.frame.adapter.ListLoader;
-import cn.yomii.www.frame.adapter.LoaderContract;
-import cn.yomii.www.frame.adapter.list.viewholder.LoadMoreViewHolder;
-import cn.yomii.www.frame.bean.response.ListResponseBean;
+import cn.yomii.www.frame.bean.ListResponse;
 
 
 /**
  * 滑动到底部自动加载下一页的ListView Adapter
  * Created by Yomii on 2017/1/12.
  */
-public abstract class AutoLoadListAdapter<T, Z extends ListResponseBean<T>> extends LoadListAdapter<T, Z> {
+public abstract class AutoLoadListAdapter<T, Z extends ListResponse<T>> extends LoadListAdapter<T, Z> {
 
     public AutoLoadListAdapter(@NonNull ListLoader<?, Z> loaderImp) {
         super(loaderImp);
