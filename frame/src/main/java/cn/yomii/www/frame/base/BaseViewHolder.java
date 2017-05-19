@@ -2,7 +2,7 @@ package cn.yomii.www.frame.base;
 
 
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,12 +20,10 @@ public abstract class BaseViewHolder<K> {
     private K data;
     private int position;
     private Context context;
-    private LayoutInflater inflater;
 
-    public BaseViewHolder(ViewGroup parent) {
+    public BaseViewHolder(ViewGroup parent, @LayoutRes int layoutRes) {
         this.context = parent.getContext();
-        inflater = LayoutInflater.from(context);
-        mView = initView(context, parent);
+        mView = initView(context, parent, layoutRes);
         if (mView == null) {
             throw new RuntimeException("None from initView");
         }
@@ -56,10 +54,6 @@ public abstract class BaseViewHolder<K> {
         return context;
     }
 
-    public LayoutInflater getInflater() {
-        return inflater;
-    }
-
     /**
      * 把条目对应的数据设置到控件上
      */
@@ -71,5 +65,5 @@ public abstract class BaseViewHolder<K> {
      *
      * @return rootview
      */
-    protected abstract View initView(Context context, ViewGroup parent);
+    protected abstract View initView(Context context, ViewGroup parent, int layoutRes);
 }

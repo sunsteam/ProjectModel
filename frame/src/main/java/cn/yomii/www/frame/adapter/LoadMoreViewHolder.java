@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,18 +19,18 @@ import cn.yomii.www.frame.base.BaseViewHolder;
 public class LoadMoreViewHolder extends BaseViewHolder<Integer> {
 
     public LoadMoreViewHolder(ViewGroup parent) {
-        super(parent);
+        super(parent,0);
     }
 
     private ProgressBar mProgressBar;
     private TextView mTextView;
 
     @Override
-    public View initView(Context context, ViewGroup parent) {
+    public View initView(Context context, ViewGroup parent, int layoutRes) {
         LinearLayout linearLayout = new LinearLayout(getContext());
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setGravity(Gravity.CENTER);
-        linearLayout.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
+        linearLayout.setLayoutParams(new AbsListView.LayoutParams(-1, -2));
 
         mProgressBar = new ProgressBar(getContext());
 

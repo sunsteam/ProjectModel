@@ -23,3 +23,15 @@ dependencies {
     compile "com.android.support:appcompat-v7:$rootProject.versions.libSupport"
     compile "com.android.support:recyclerview-v7:$rootProject.versions.libSupport"
 }
+
+
+//android.libraryVariants.all { variant ->
+//    def name = variant.buildType.name
+//    if (name.equals(BuilderConstants.DEBUG)) {
+//        return; // Skip debug builds.
+//    }
+//    def task = project.tasks.create "jar${name.capitalize()}", Jar
+//    task.dependsOn variant.javaCompile
+//    task.from variant.javaCompile.destinationDir
+//    artifacts.add('archives', task);
+//}
