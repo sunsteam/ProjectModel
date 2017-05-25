@@ -1,13 +1,10 @@
 package cn.yomii.www.projectmodel;
 
-import com.apkfuns.logutils.LogUtils;
+import android.util.SparseArray;
 
-import cn.yomii.www.frame.adapter.LoaderContract;
+import java.util.ArrayList;
+
 import cn.yomii.www.frame.base.BaseActivity;
-import cn.yomii.www.frame.bean.ListRequest;
-import cn.yomii.www.projectmodel.adapter.CustomAspectListener;
-import cn.yomii.www.projectmodel.adapter.WebLoader;
-import cn.yomii.www.projectmodel.bean.response.ListResponseBean;
 
 /**
  * Created by Yomii on 2017/4/20.
@@ -18,29 +15,21 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         setContentView(R.layout.main_act);
 
-        WebLoader<Object, ListResponseBean> loader = new WebLoader<>(new ListRequest<>());
-        CustomAspectListener customAspectListener = new CustomAspectListener() {
-            @Override
-            public void onDataFiltered(int index) {
+        RadarView radarView = (RadarView) findViewById(R.id.radar_view);
 
-            }
+        ArrayList<RadarView.Argument> arguments = new ArrayList<>();
+        arguments.add(new RadarView.Argument("备案信息", 10));
+        arguments.add(new RadarView.Argument("技术指标", 10));
+        arguments.add(new RadarView.Argument("参编单位", 10));
+        arguments.add(new RadarView.Argument("产品数量", 10));
+        arguments.add(new RadarView.Argument("标准数量", 10));
+        radarView.setArgumentList(arguments);
 
-            @Override
-            public void onLoadBefore(int state, ListRequest request) {
+        SparseArray<float[]> sparseArray = new SparseArray<>();
+        sparseArray.append(0x888FCE1F,new float[]{5,3.8f,8.6f,7,5});
+        sparseArray.append(0x8800A0E9,new float[]{8,9,7.8f,9,3.5f});
 
-            }
-
-            @Override
-            public void onLoadAfter(int state) {
-
-            }
-        };
-        loader.setLoadListener(customAspectListener);
-        LoaderContract.OnLoadAspectListener loadListener = loader.getLoadListener();
-
-        LogUtils.i("写入: " + customAspectListener);
-        LogUtils.i("获取: " + loadListener);
-
+        radarView.setLayerList(sparseArray);
     }
 
     @Override
