@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DotProgress">
+        <attr name="strokeColor" format="color" />
+        <attr name="strokeWidth" format="dimension" />
+        <attr name="dotPadding" format="dimension" />
+        <attr name="outTextSize" format="dimension" />
+        <attr name="headTextSize" format="dimension" />
+        <attr name="headTextUnitSize" format="dimension" />
+        <attr name="indicatorDrawable" format="reference" />
+        <attr name="progressMax" format="integer" />
+        <attr name="progress" format="integer" />
+    </declare-styleable>
+</resources>

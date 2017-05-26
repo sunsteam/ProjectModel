@@ -18,6 +18,10 @@
         <attr name="pst_textAllCaps" format="boolean" />
     </declare-styleable>
 
-
+    <declare-styleable name="Radar">
+        <attr name="strokeColor" format="color" />
+        <attr name="strokeWidth" format="dimension" />
+        <attr name="textPadding" format="dimension" />
+    </declare-styleable>
 
 </resources>
