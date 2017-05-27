@@ -1,6 +1,5 @@
 package cn.yomii.www.frame.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -67,12 +66,7 @@ public class RadarView extends View {
     }
 
     public RadarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    @TargetApi(21)
-    public RadarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         //初始化颜色和尺寸信息
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         strokeWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, displayMetrics);
@@ -146,8 +140,8 @@ public class RadarView extends View {
                 }
             }
         });
-
     }
+
 
 
     public List<Argument> getArgumentList() {

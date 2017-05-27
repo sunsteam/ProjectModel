@@ -1,6 +1,5 @@
 package cn.yomii.www.projectmodel;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -63,12 +62,7 @@ public class ProgressView extends View {
     }
 
     public ProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    @TargetApi(21)
-    public ProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         strokeWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, displayMetrics);
@@ -133,6 +127,7 @@ public class ProgressView extends View {
             }
         });
     }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
