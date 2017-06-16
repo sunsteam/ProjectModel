@@ -17,9 +17,11 @@ import cn.yomii.www.projectmodel.R;
 
 
 /**
+ * 引导页面工具类
  *
  * Created by Yomii on 2016/5/18.
  */
+@SuppressWarnings("unused")
 public class GuideUtils {
 
     private ImageView imgView;

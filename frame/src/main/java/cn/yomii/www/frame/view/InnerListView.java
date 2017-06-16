@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 /**
  * 放置于滑动布局中的ListView
+ *
  * Created by Yomii on 2016/4/12.
  */
 public class InnerListView extends ListView {

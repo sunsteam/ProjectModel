@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">ProjectModel</string>
+
     <string name="file_provider_auth">cn.yomii.www.projectmodel.fileProvider</string>
     <string name="load_more">加载中…</string>
     <string name="load_nomore">已显示全部内容</string>
@@ -8,4 +9,15 @@
     <string name="list_server_error">系统维护中</string>
     <string name="server_error">正在进行系统维护，目前暂停使用，请稍候再试。</string>
     <string name="error_9984_token_expired">登录已过期</string>
+
+    <string name="delete">删除</string>
+    <string name="copy">复制</string>
+    <string name="confirm">确认</string>
+    <string name="hint">提示</string>
+    <string name="sure">确定</string>
+    <string name="cancel">取消</string>
+    <string name="edit">编辑</string>
+    <string name="complete">完成</string>
+    <string name="save">保存</string>
+    <string name="home_as_up">Navigate Up</string>
 </resources>

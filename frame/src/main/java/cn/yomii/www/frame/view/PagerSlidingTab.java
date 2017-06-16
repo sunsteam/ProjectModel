@@ -41,8 +41,6 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-import cn.yomii.www.frame.R;
-
 
 /**
  * 可滑动ViewPager标签 绑定自定义的LazyViewPager使用 用于页面间切换
@@ -66,6 +64,7 @@ public class PagerSlidingTab extends HorizontalScrollView {
 
     private final PageListener pageListener = new PageListener();
     public OnPageChangeListener delegatePageListener;
+    public OnClickListener delegateTabClickListener;
 
     private LinearLayout tabsContainer;
     private ViewPager pager;
@@ -148,23 +147,23 @@ public class PagerSlidingTab extends HorizontalScrollView {
 
         // get custom attrs
 
-        a = context.obtainStyledAttributes(attrs, R.styleable.PagerSlidingTab);
+        a = context.obtainStyledAttributes(attrs, cn.yomii.www.frame.R.styleable.PagerSlidingTab);
 
-        indicatorColor = a.getColor(R.styleable.PagerSlidingTab_indicatorColor, indicatorColor);
-        underlineColor = a.getColor(R.styleable.PagerSlidingTab_underlineColor, underlineColor);
-        dividerColor = a.getColor(R.styleable.PagerSlidingTab_dividerColor, dividerColor);
-        indicatorHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTab_indicatorHeight, indicatorHeight);
-        underlineHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTab_underlineHeight, underlineHeight);
-        dividerPadding = a.getDimensionPixelSize(R.styleable.PagerSlidingTab_pst_dividerPadding, dividerPadding);
-        tabPadding = a.getDimensionPixelSize(R.styleable.PagerSlidingTab_tabPaddingLeftRight, tabPadding);
-        tabBackgroundResId = a.getResourceId(R.styleable.PagerSlidingTab_tabsBackground, tabBackgroundResId);
-        firstTabBackgroundResId = a.getResourceId(R.styleable.PagerSlidingTab_firstTabsBackground,
+        indicatorColor = a.getColor(cn.yomii.www.frame.R.styleable.PagerSlidingTab_indicatorColor, indicatorColor);
+        underlineColor = a.getColor(cn.yomii.www.frame.R.styleable.PagerSlidingTab_underlineColor, underlineColor);
+        dividerColor = a.getColor(cn.yomii.www.frame.R.styleable.PagerSlidingTab_dividerColor, dividerColor);
+        indicatorHeight = a.getDimensionPixelSize(cn.yomii.www.frame.R.styleable.PagerSlidingTab_indicatorHeight, indicatorHeight);
+        underlineHeight = a.getDimensionPixelSize(cn.yomii.www.frame.R.styleable.PagerSlidingTab_underlineHeight, underlineHeight);
+        dividerPadding = a.getDimensionPixelSize(cn.yomii.www.frame.R.styleable.PagerSlidingTab_pst_dividerPadding, dividerPadding);
+        tabPadding = a.getDimensionPixelSize(cn.yomii.www.frame.R.styleable.PagerSlidingTab_tabPaddingLeftRight, tabPadding);
+        tabBackgroundResId = a.getResourceId(cn.yomii.www.frame.R.styleable.PagerSlidingTab_tabsBackground, tabBackgroundResId);
+        firstTabBackgroundResId = a.getResourceId(cn.yomii.www.frame.R.styleable.PagerSlidingTab_firstTabsBackground,
                 firstTabBackgroundResId);
-        lastTabBackgroundResId = a.getResourceId(R.styleable.PagerSlidingTab_lastTabsBackground,
+        lastTabBackgroundResId = a.getResourceId(cn.yomii.www.frame.R.styleable.PagerSlidingTab_lastTabsBackground,
                 lastTabBackgroundResId);
-        shouldExpand = a.getBoolean(R.styleable.PagerSlidingTab_shouldExpand, shouldExpand);
-        scrollOffset = a.getDimensionPixelSize(R.styleable.PagerSlidingTab_scrollOffset, scrollOffset);
-        textAllCaps = a.getBoolean(R.styleable.PagerSlidingTab_pst_textAllCaps, textAllCaps);
+        shouldExpand = a.getBoolean(cn.yomii.www.frame.R.styleable.PagerSlidingTab_shouldExpand, shouldExpand);
+        scrollOffset = a.getDimensionPixelSize(cn.yomii.www.frame.R.styleable.PagerSlidingTab_scrollOffset, scrollOffset);
+        textAllCaps = a.getBoolean(cn.yomii.www.frame.R.styleable.PagerSlidingTab_pst_textAllCaps, textAllCaps);
 
         a.recycle();
 
@@ -200,6 +199,10 @@ public class PagerSlidingTab extends HorizontalScrollView {
         this.delegatePageListener = listener;
     }
 
+    public void setTabClickListener(OnClickListener tabClickListener) {
+        this.delegateTabClickListener = tabClickListener;
+    }
+
     public void notifyDataSetChanged() {
 
         tabsContainer.removeAllViews();
@@ -227,10 +230,10 @@ public class PagerSlidingTab extends HorizontalScrollView {
             public void onGlobalLayout() {
 
                 getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                //				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                //				} else {
-                //					getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                //				}
+                //                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                //                } else {
+                //                    getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                //                }
 
                 currentPosition = pager.getCurrentItem();
                 scrollToChild(currentPosition, 0);
@@ -254,9 +257,10 @@ public class PagerSlidingTab extends HorizontalScrollView {
             @Override
             public void onClick(View v) {
                 pager.setCurrentItem(position);
+                if (delegateTabClickListener != null)
+                    delegateTabClickListener.onClick(v);
             }
         });
-
         tabsContainer.addView(tab);
 
     }
@@ -271,6 +275,8 @@ public class PagerSlidingTab extends HorizontalScrollView {
             @Override
             public void onClick(View v) {
                 pager.setCurrentItem(position);
+                if (delegateTabClickListener != null)
+                    delegateTabClickListener.onClick(v);
             }
         });
 
@@ -285,7 +291,7 @@ public class PagerSlidingTab extends HorizontalScrollView {
 
             View v = tabsContainer.getChildAt(i);
 
-            v.setLayoutParams(defaultTabLayoutParams);
+            v.setLayoutParams(shouldExpand ? expandedTabLayoutParams : defaultTabLayoutParams);
 
             if (tabCount == 1)
                 v.setBackgroundResource(tabBackgroundResId);
@@ -298,7 +304,8 @@ public class PagerSlidingTab extends HorizontalScrollView {
                 v.setBackgroundResource(tabBackgroundResId);
 
             if (shouldExpand) {
-                v.setPadding(0, 0, 0, 0);
+                //v.setPadding(0, 0, 0, 0);
+                tabsContainer.setPadding(tabPadding, 0, tabPadding, 0);
             } else {
                 v.setPadding(tabPadding, 0, tabPadding, 0);
             }

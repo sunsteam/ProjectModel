@@ -1,6 +1,6 @@
 package cn.yomii.www.projectmodel;
 
-import cn.yomii.www.frame.base.BaseActivity;
+import cn.yomii.www.projectmodel.base.BaseActivity;
 
 /**
  * Created by Yomii on 2017/4/20.

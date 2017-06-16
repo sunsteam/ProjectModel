@@ -4,6 +4,9 @@ import android.widget.Toast;
 
 import cn.yomii.www.projectmodel.App;
 
+/**
+ * Toast工具类
+ */
 public class ToastUtils {
 
     private static Toast toast;

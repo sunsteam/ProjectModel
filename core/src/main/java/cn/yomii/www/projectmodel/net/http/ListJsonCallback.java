@@ -15,7 +15,7 @@ import java.lang.reflect.Type;
 import cn.yomii.www.projectmodel.Info;
 import cn.yomii.www.projectmodel.R;
 import cn.yomii.www.projectmodel.bean.request.LoginRequest;
-import cn.yomii.www.projectmodel.bean.response.ListResponseBean;
+import cn.yomii.www.projectmodel.bean.response.ListResponse;
 import cn.yomii.www.projectmodel.bean.response.LoginResponse;
 import cn.yomii.www.projectmodel.utils.ToastUtils;
 import okhttp3.Call;
@@ -25,7 +25,7 @@ import okhttp3.Response;
  * Json格式数据回调基类
  * Created by Yomii on 2017/1/9.
  */
-public abstract class ListJsonCallback<T extends ListResponseBean> extends AbsCallback<T> {
+public abstract class ListJsonCallback<T extends ListResponse> extends AbsCallback<T> {
 
     private BaseRequest baseRequest;
     private int tryCount = 3;

@@ -23,7 +23,8 @@ import cn.yomii.www.frame.R;
 
 
 /**
- * 雷达图
+ * 雷达图控件
+ *
  * Created by Yomii on 2017/5/25.
  */
 

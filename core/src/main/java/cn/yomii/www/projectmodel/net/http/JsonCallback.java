@@ -1,8 +1,8 @@
 package cn.yomii.www.projectmodel.net.http;
 
-import android.support.annotation.NonNull;
+import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONReader;
 import com.apkfuns.logutils.LogUtils;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.request.BaseRequest;
@@ -14,7 +14,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import cn.yomii.www.projectmodel.Info;
-import cn.yomii.www.projectmodel.R;
 import cn.yomii.www.projectmodel.bean.request.LoginRequest;
 import cn.yomii.www.projectmodel.bean.response.LoginResponse;
 import cn.yomii.www.projectmodel.bean.response.ResponseBean;
@@ -25,15 +24,23 @@ import okhttp3.Response;
 /**
  * Json格式数据回调基类
  * Created by Yomii on 2017/1/9.
+ *
+ * @param <R> Response 返回结果封装
  */
-public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T> {
+public abstract class JsonCallback<R extends ResponseBean> extends AbsCallback<R> {
 
     private BaseRequest baseRequest;
     private int tryCount = 3;
-    private Class<?> clazz;
+    private Class<R> clazz;
+    private Type type;
 
-    public JsonCallback(Class<?> clazz) {
+
+    public JsonCallback(Class<R> clazz) {
         this.clazz = clazz;
+    }
+
+    public JsonCallback(Type type) {
+        this.type = type;
     }
 
     public JsonCallback() {
@@ -46,41 +53,41 @@ public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T
     }
 
     @Override
-    public T convertSuccess(Response response) throws Exception {
+    public R convertSuccess(Response response) throws Exception {
 
-        Type type;
-        if (clazz != null){
-            type = clazz;
-        }else {
-            ParameterizedType genType = (ParameterizedType) getClass().getGenericSuperclass();
-            type = genType.getActualTypeArguments()[0];
+        if (type == null) {
+            if (clazz != null) {
+                type = clazz;
+            } else {
+                ParameterizedType genType = (ParameterizedType) getClass().getGenericSuperclass();
+                type = genType.getActualTypeArguments()[0];
+            }
         }
 
-        T o = parseJson(getBodyString(response), type);
+        R o = parseJson(response, type);
 
-        if (o.err == 0)
+        if (o.getErr() == 0)
             return o;
 
-        throw new BusinessException(o.err, o.error);
+        throw new BusinessException(o.getErr(), o.getError());
     }
 
-    @NonNull
-    private String getBodyString(Response response) throws IOException {
-        try {
-            return response.body().string();
-        } finally {
-            response.close();
-        }
-    }
 
-    private T parseJson(String json, Type t) {
+    private R parseJson(Response response, Type t) {
         try {
-            return JSON.parseObject(json, t);
+            JSONReader jsonReader = new JSONReader(response.body().charStream());
+            return jsonReader.readObject(t);
         } catch (RuntimeException e) {
-            LogUtils.e("reason" + e.toString());
-            LogUtils.e("ErrorJsonString" + json);
-            LogUtils.e("ErrorClass" + t.toString());
+            Log.e("ErrorClass", t.toString());
+            try {
+                Log.e("ErrorJsonString", response.body().string());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             throw e;
+        } finally {
+            if (response != null)
+                response.close();
         }
     }
 
@@ -94,8 +101,8 @@ public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T
             } else {
                 onExceptionResponse(re, call, response);
             }
-        }else
-            LogUtils.e(e);
+        } else
+            e.printStackTrace();
 
     }
 
@@ -109,7 +116,7 @@ public abstract class JsonCallback<T extends ResponseBean> extends AbsCallback<T
             tryCount--;
             HttpHelper.post(LoginRequest.getRetryLoginRequest(), "login").execute(new RetryLoginCallBack());
         } else {
-            ToastUtils.imitShowToast(R.string.error_9984_token_expired);
+            ToastUtils.imitShowToast(cn.yomii.www.projectmodel.R.string.error_9984_token_expired);
         }
     }
 

@@ -17,7 +17,6 @@ import com.tencent.bugly.beta.Beta;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-import cn.yomii.www.frame.ActivityLifeCallback;
 import cn.yomii.www.projectmodel.net.http.HttpHelper;
 
 /**

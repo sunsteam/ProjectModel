@@ -5,9 +5,5 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <cn.yomii.www.projectmodel.ProgressView
-        android:id="@+id/progress_view"
-        android:layout_width="@dimen/dp_116"
-        android:layout_height="@dimen/dp_97"/>
 
 </LinearLayout>

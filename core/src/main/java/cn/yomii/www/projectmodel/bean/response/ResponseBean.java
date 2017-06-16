@@ -10,12 +10,12 @@ public class ResponseBean{
     /**
      * 状态码
      */
-    public int err;
+    private int err;
 
     /**
      * 错误信息
      */
-    public String error;
+    private String error;
 
     @Override
     public String toString() {
@@ -23,5 +23,21 @@ public class ResponseBean{
                 "err=" + err +
                 ", error='" + error + '\'' +
                 '}';
+    }
+
+    public int getErr() {
+        return err;
+    }
+
+    public void setErr(int err) {
+        this.err = err;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 }
