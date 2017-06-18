@@ -1,1 +1,1 @@
-include ':core', ':frame'
+include ':core', ':view', ':http_okgo', ':base', ':http_retrofit'

@@ -18,12 +18,19 @@ android {
         versionName "1.0"
 
 
-        applicationId "cn.yomii.www.projectmodel"
+        applicationId "com.yomii.core"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             // 设置支持的SO库架构
             abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
+
+        dataBinding{
+            enabled true
+        }
+
+        //开启Vector支持
+        vectorDrawables.setUseSupportLibrary(true)
     }
 
     signingConfigs {
@@ -91,21 +98,23 @@ android {
 }
 
 dependencies {
-
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
+    //support
     compile "com.android.support:appcompat-v7:$rootProject.versions.libSupport"
     compile "com.android.support:recyclerview-v7:$rootProject.versions.libSupport"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-//    //网络
-//    compile "com.squareup.retrofit2:retrofit:$rootProject.versions.libRetrofit"
-//    compile "com.squareup.retrofit2:converter-gson:$rootProject.versions.libRetrofit"
-//    compile "com.squareup.retrofit2:adapter-rxjava2:$rootProject.versions.libRetrofit"
-//    compile "com.squareup.okhttp3:okhttp:$rootProject.versions.libOkhttp"
-//    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.versions.libOkhttp"
+
+    //    //网络
+    //    compile "com.squareup.retrofit2:retrofit:$rootProject.versions.libRetrofit"
+    //    compile "com.squareup.retrofit2:converter-gson:$rootProject.versions.libRetrofit"
+    //    compile "com.squareup.retrofit2:adapter-rxjava2:$rootProject.versions.libRetrofit"
+    //    compile "com.squareup.okhttp3:okhttp:$rootProject.versions.libOkhttp"
+    //    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.versions.libOkhttp"
+
     //rx
     compile "io.reactivex.rxjava2:rxjava:$rootProject.versions.libRxJava"
     compile "io.reactivex.rxjava2:rxandroid:$rootProject.versions.libRxJava"
@@ -113,14 +122,18 @@ dependencies {
     //依赖注入
     compile "com.jakewharton:butterknife:$rootProject.versions.libButterKnife"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.versions.libButterKnife"
-
+    //图片
+    compile 'com.github.bumptech.glide:glide:3.8.0'
+    //错误上报和修复
+    compile 'com.tencent.bugly:crashreport_upgrade:1.2.1'
+    //json
+    compile 'com.alibaba:fastjson:1.2.8'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.apkfuns.logutils:library:1.4.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.tencent.bugly:crashreport_upgrade:1.2.1'
-    compile 'com.lzy.net:okgo:2.1.4'
-    compile 'com.lzy.net:okrx:0.1.2'
-    compile 'com.alibaba:fastjson:1.2.8'
     //compile 'com.github.chrisbanes.photoview:library:1.2.4'
     //compile 'se.emilsjolander:stickylistheaders:2.7.0'
+
+    compile project(':base')
+    compile project(':http_okgo')
+    compile project(':view')
 }

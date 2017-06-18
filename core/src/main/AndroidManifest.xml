@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.yomii.www.projectmodel">
+    package="com.yomii.core">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".App"
+        android:name="com.yomii.core.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,7 +20,7 @@
 
         <!--glide配置文件-->
         <meta-data
-            android:name="cn.yomii.www.projectmodel.utils.glide.OkHttpGlideModule"
+            android:name="com.yomii.www.core.utils.glide.OkHttpGlideModule"
             android:value="GlideModule" />
 
         <!-- Bugly配置APP渠道号 -->
@@ -43,7 +43,7 @@
         </provider>
 
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.yomii.core.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
