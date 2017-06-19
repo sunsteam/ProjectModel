@@ -12,7 +12,7 @@ buildscript {
                     libButterKnife: "8.5.1",
                     libRxJava     : "2.0.1",
                     libRxBinding  : "2.0.0",
-                    libRetrofit   : "2.2.0",
+                    libRetrofit   : "2.3.0",
                     libOkhttp     : "3.8.0"]
     }
 

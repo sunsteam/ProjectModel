@@ -18,6 +18,8 @@ import com.yomii.http_okgo.HttpHelper;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+import static com.yomii.core.ApiNeeds.Bugly_ID;
+
 /**
  * 全局环境
  * Created by Yomii on 2017/1/9.
@@ -160,19 +162,4 @@ public class App extends Application {
         android.os.Process.killProcess(android.os.Process.myPid());
     }
 
-
-    /**
-     * 微信Secret
-     */
-    public static final String WX_SECRET = "wx0798e1bdcaeca37c";
-
-    /**
-     * Bugly App ID
-     */
-    public static final String Bugly_ID = "todo";
-
-    /**
-     * 服务器自签名https证书
-     */
-    public static final String CRT = "todo";
 }

@@ -1,5 +1,15 @@
-# ProjectModel 2017.1.12
+# ProjectModel 2017.6.19
 项目快速开发模版,配置公共组件,基类等
+
+base : 基类library
+
+view : 自定义控件
+
+http_okgo : 通过OKGO封装OKHttp
+
+http_retrofit : 通过retrofit封装OKHttp
+
+core : app客户端, 包含各种utils
 
 ### Application初始化
 网络库,安全退出app的逻辑,提供全局Handler,Context,Metrics,Thread,Tid
@@ -8,25 +18,31 @@
 'com.apkfuns.logutils:library:1.4.0'
 
 ### http连接库
-'com.lzy.net:okgo:2.1.4' ,内置连接核心为okhttp-3.4.1, 配置了JsonCallback回调基类, 请求/返回结果的包装基类
+okhttp-3.8.0
+'com.lzy.net:okgo:2.1.4'
+'com.squareup.retrofit2:retrofit:2.3.0'
+
+配置了JsonCallback回调基类, 请求/返回结果的包装基类
+
 
 **需要在App类中设置服务器证书**
 
 https://github.com/jeasonlzy/okhttp-OkGo
 
 ### 图片库
-'com.github.bumptech.glide:glide:3.7.0'
+'com.github.bumptech.glide:glide:3.8.0'
 
 配置 GlideModule通用实现,使用OKHttp作为网络连接核心, 添加圆形/圆角图片的转换类
 
 ### android.support
-'com.android.support:design:25.1.0' 包含RecyclerView和v7,v4,不需要另外导入
+appcompat , RecyclerView , constraint-layout
 
 ### Json转换
-'com.alibaba:fastjson:1.2.8'
+'com.alibaba:fastjson:1.2.8' 对应 OKGO
+Gson 对应 Retrofit
 
 ### 异常处理 and 软件升级
-compile 'com.tencent.bugly:crashreport_upgrade:1.2.1'
+compile 'com.tencent.bugly:crashreport_upgrade:1.3.1'
 
 - 异常处理
 
