@@ -11,4 +11,5 @@
         <attr name="progressMax" format="integer" />
         <attr name="progress" format="integer" />
     </declare-styleable>
+
 </resources>
