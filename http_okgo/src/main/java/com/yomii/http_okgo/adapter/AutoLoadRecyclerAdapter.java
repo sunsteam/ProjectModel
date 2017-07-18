@@ -14,7 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.yomii.base.BaseRecyclerHolder;
-import com.yomii.base.LoaderState;
 import com.yomii.base.bean.RequestBean;
 import com.yomii.http_okgo.R;
 
@@ -78,7 +77,7 @@ public abstract class AutoLoadRecyclerAdapter<D> extends WebRecyclerAdapter<D, R
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (position == getItemCount()) {
             LoadMoreVH loadMoreVH = (LoadMoreVH) holder;
-            if (state == LoaderState.STATE_HASMORE)
+            if (state == STATE_HASMORE)
                 load(); //获取下一页
 
             loadMoreVH.setData(state, position);
@@ -139,19 +138,19 @@ public abstract class AutoLoadRecyclerAdapter<D> extends WebRecyclerAdapter<D, R
         @Override
         protected void setDataToView(Integer data, int position) {
             switch (data) {
-                case LoaderState.STATE_EMPTY:
+                case STATE_EMPTY:
                     setInfo(false, R.string.load_empty);
                     break;
-                case LoaderState.STATE_ERROR:
+                case STATE_ERROR:
                     setInfo(false, R.string.load_error);
                     break;
-                case LoaderState.STATE_DATASOURCEERROR:
+                case STATE_DATASOURCEERROR:
                     setInfo(false, R.string.list_server_error);
                     break;
-                case LoaderState.STATE_LOADING:
+                case STATE_LOADING:
                     setInfo(true, R.string.load_more);
                     break;
-                case LoaderState.STATE_NOMORE:
+                case STATE_NOMORE:
                     setInfo(false, R.string.load_nomore);
                     break;
             }

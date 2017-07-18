@@ -51,9 +51,8 @@ public interface LoaderState {
          * 开始请求前调用
          *
          * @param state   请求前的状态
-         * @param request 当前请求
          */
-        <R> void onLoadBefore(int state, R request, int index, int size);
+        void onLoadBefore(int state, int index, int size);
 
         /**
          * 请求完成后调用,无论成功失败

@@ -8,6 +8,11 @@ bugly {
 }
 
 android {
+
+    dataBinding{
+        enabled true
+    }
+
     compileSdkVersion rootProject.setup.compileSdk
     buildToolsVersion rootProject.setup.buildTools
 
@@ -23,10 +28,6 @@ android {
         ndk {
             // 设置支持的SO库架构
             abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
-        }
-
-        dataBinding{
-            enabled true
         }
 
         //开启Vector支持

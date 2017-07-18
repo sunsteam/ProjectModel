@@ -18,13 +18,21 @@ import android.widget.LinearLayout;
  *
  * 用来包裹EditText 在左或右设置一个清除文字按钮，点击可以恢复到默认文字。必须包含一个EditText子控件，否则报错。
  */
-
 public class DeletableEditTextWrapper extends LinearLayout {
 
     private static final int ORIENTATION_RIGHT = 1;
 
+    /**
+     * 默认文字, 清除时也设置为默认文字
+     */
     private String defaultText;
+    /**
+     * 按钮图片
+     */
     private Drawable buttonDrawable;
+    /**
+     * 按钮方向, 默认右, 左0 右1
+     */
     private int buttonOrientation;
 
     //view
