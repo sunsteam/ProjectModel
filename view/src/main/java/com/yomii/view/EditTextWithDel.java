@@ -41,7 +41,9 @@ public class EditTextWithDel extends android.support.v7.widget.AppCompatEditText
 
     private void init() {
         currentEmpty = true;
-        iconDelete = getCompoundDrawables()[2];
+        Drawable[] d = getCompoundDrawables();
+        setCompoundDrawablesWithIntrinsicBounds(d[0], d[1], null, d[3]);
+        iconDelete = d[2];
         addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -56,7 +58,8 @@ public class EditTextWithDel extends android.support.v7.widget.AppCompatEditText
                 boolean isEmpty = length() < 1;
                 if (currentEmpty != isEmpty) {
                     currentEmpty = isEmpty;
-                    setCompoundDrawablesWithIntrinsicBounds(null, null, currentEmpty ? null : iconDelete, null);
+                    Drawable[] d = getCompoundDrawables();
+                    setCompoundDrawablesWithIntrinsicBounds(d[0], d[1], currentEmpty ? null : iconDelete, d[3]);
                 }
             }
         });
