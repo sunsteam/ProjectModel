@@ -4,16 +4,14 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSONReader;
 import com.lzy.okgo.callback.AbsCallback;
-import com.lzy.okgo.request.BaseRequest;
+import com.lzy.okgo.model.Response;
 import com.yomii.base.BusinessException;
 import com.yomii.base.bean.ResponseBean;
 
-import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import okhttp3.Call;
-import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * Json格式数据回调基类
@@ -23,8 +21,6 @@ import okhttp3.Response;
  */
 public abstract class JsonCallback<R extends ResponseBean> extends AbsCallback<R> {
 
-    private BaseRequest baseRequest;
-    private int tryCount = 3;
     private Class<R> clazz;
     private Type type;
 
@@ -41,13 +37,11 @@ public abstract class JsonCallback<R extends ResponseBean> extends AbsCallback<R
     }
 
     @Override
-    public void onBefore(BaseRequest request) {
-        baseRequest = request;
-        super.onBefore(request);
-    }
+    public R convertResponse(okhttp3.Response response) throws Throwable {
 
-    @Override
-    public R convertSuccess(Response response) throws Exception {
+        ResponseBody body = response.body();
+        if (body == null)
+            return null;
 
         if (type == null) {
             if (clazz != null) {
@@ -58,7 +52,7 @@ public abstract class JsonCallback<R extends ResponseBean> extends AbsCallback<R
             }
         }
 
-        R o = parseJson(response, type);
+        R o = parseJson(body, type);
 
         if (o.getErr() == 0)
             return o;
@@ -67,87 +61,41 @@ public abstract class JsonCallback<R extends ResponseBean> extends AbsCallback<R
     }
 
 
-    private R parseJson(Response response, Type t) {
+    private R parseJson(ResponseBody body, Type t) {
         try {
-            JSONReader jsonReader = new JSONReader(response.body().charStream());
+            JSONReader jsonReader = new JSONReader(body.charStream());
             return jsonReader.readObject(t);
         } catch (RuntimeException e) {
             Log.e("ErrorClass", t.toString());
-            try {
-                Log.e("ErrorJsonString", response.body().string());
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+            Log.e("ErrorJsonString", body.toString());
             throw e;
         } finally {
-            if (response != null)
-                response.close();
+            if (body != null)
+                body.close();
         }
     }
 
-    @Override
-    public void onError(Call call, Response response, Exception e) {
-        super.onError(call, response, e);
-        if (e instanceof BusinessException) {
-            BusinessException re = (BusinessException) e;
-            if (re.getErr() == 9984) {
-                onTokenExpired(call, response);
-            } else {
-                onExceptionResponse(re, call, response);
-            }
-        } else
-            e.printStackTrace();
 
-    }
-
-    protected void onExceptionResponse(BusinessException e, Call call, Response response) {
+    protected void onExceptionResponse(BusinessException e, Response<R> response) {
         Log.e("exception: ", e.getError());
     }
 
-    protected void onTokenExpired(Call call, Response response) {
-//        if (tryCount >= 1) {
-//            Log.i("重试登陆--" , tryCount+"");
-//            tryCount--;
-//            HttpHelper.post(LoginRequest.getRetryLoginRequest(), "login").execute(new RetryLoginCallBack());
-//        } else {
-//            ToastUtils.imitShowToast(R.string.error_9984_token_expired);
-//        }
+    protected void onTokenExpired(Response<R> response) {
     }
 
-//    class RetryLoginCallBack extends JsonCallback<LoginResponse> {
-//
-//        @Override
-//        public void onSuccess(LoginResponse loginResponse, Call call, Response response) {
-//
-//            Info.fillUserInfoAfterLogin(loginResponse);
-//
-//            if (baseRequest instanceof PostRequest) {
-//                try {
-//                    Field json = baseRequest.getClass().getDeclaredField("content");
-//                    json.setAccessible(true);
-//                    String jsonStr = (String) json.get(baseRequest);
-//                    Log.i("原始body--" , jsonStr);
-//
-//                    String tokenTag = "token\":\"";
-//                    if (jsonStr.contains(tokenTag)) {
-//                        int tokenHead = jsonStr.indexOf(tokenTag);
-//                        int tokenStart = tokenHead + tokenTag.length();
-//                        String left = jsonStr.substring(0, tokenStart);
-//                        int tokenEnd = jsonStr.indexOf("\"", tokenStart);
-//                        String right = jsonStr.substring(tokenEnd);
-//                        jsonStr = left + Info.getToken() + right;
-//                    }
-//                    Log.i("新body--" , jsonStr);
-//
-//                    HttpHelper.post(jsonStr, call.request().tag()).execute(JsonCallback.this);
-//                } catch (NoSuchFieldException e) {
-//                    e.printStackTrace();
-//                } catch (IllegalAccessException e) {
-//                    e.printStackTrace();
-//                }
-//            } else {
-//                throw new RuntimeException("not post request");
-//            }
-//        }
-//    }
+
+    @Override
+    public void onError(Response<R> response) {
+        super.onError(response);
+        Throwable e = response.getException();
+        if (e instanceof BusinessException) {
+            BusinessException be = (BusinessException) e;
+            if (be.getErr() == 9984) {
+                onTokenExpired(response);
+            } else {
+                onExceptionResponse(be, response);
+            }
+        } else
+            e.printStackTrace();
+    }
 }

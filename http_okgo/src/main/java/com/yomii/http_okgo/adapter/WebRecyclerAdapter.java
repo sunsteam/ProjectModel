@@ -3,7 +3,8 @@ package com.yomii.http_okgo.adapter;
 import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.lzy.okgo.request.BaseRequest;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.yomii.base.BaseLoadRecyclerAdapter;
 import com.yomii.base.BusinessException;
 import com.yomii.base.bean.ListResponse;
@@ -12,9 +13,6 @@ import com.yomii.http_okgo.HttpHelper;
 import com.yomii.http_okgo.JsonCallback;
 
 import java.lang.reflect.Type;
-
-import okhttp3.Call;
-import okhttp3.Response;
 
 /**
  * Created by Yomii on 2017/6/15.
@@ -41,9 +39,8 @@ public abstract class WebRecyclerAdapter<D, VH extends RecyclerView.ViewHolder>
         JSONObject reqJson = (JSONObject) JSONObject.toJSON(request);
         reqJson.put("index", index);
         reqJson.put("size", pageSize);
-        HttpHelper.post(reqJson.toJSONString(), request.cmd).execute(callback);
+        HttpHelper.<ListResponse<D>>post(reqJson.toJSONString(), request.cmd).execute(callback);
     }
-
 
     private class ListCallback extends JsonCallback<ListResponse<D>> {
 
@@ -52,31 +49,31 @@ public abstract class WebRecyclerAdapter<D, VH extends RecyclerView.ViewHolder>
         }
 
         @Override
-        public void onBefore(BaseRequest baseRequest) {
-            super.onBefore(baseRequest);
+        public void onStart(Request<ListResponse<D>, ? extends Request> request) {
+            super.onStart(request);
             onLoadBefore();
         }
 
         @Override
-        public void onSuccess(ListResponse<D> resp, Call call, Response response) {
-            onLoadSuccess(resp);
+        public void onSuccess(Response<ListResponse<D>> response) {
+            onLoadSuccess(response.body());
         }
 
         @Override
-        public void onError(Call call, Response response, Exception e) {
-            super.onError(call, response, e);
+        public void onError(Response<ListResponse<D>> response) {
+            super.onError(response);
             onLoadError();
         }
 
         @Override
-        protected void onExceptionResponse(BusinessException e, Call call, Response response) {
-            super.onExceptionResponse(e, call, response);
+        protected void onExceptionResponse(BusinessException e, Response<ListResponse<D>> response) {
+            super.onExceptionResponse(e, response);
             onLoadException();
         }
 
         @Override
-        public void onAfter(ListResponse<D> tListResponse, Exception e) {
-            super.onAfter(tListResponse, e);
+        public void onFinish() {
+            super.onFinish();
             onLoadAfter();
         }
     }

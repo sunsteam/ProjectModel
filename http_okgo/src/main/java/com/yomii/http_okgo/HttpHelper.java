@@ -5,9 +5,9 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
-import com.lzy.okgo.request.BaseBodyRequest;
 import com.lzy.okgo.request.PostRequest;
-import com.yomii.base.bean.RequestBean;
+
+import org.json.JSONObject;
 
 /**
  * Http请求二次封装
@@ -22,29 +22,46 @@ public class HttpHelper {
     /**
      * post字符串
      */
-    public static BaseBodyRequest<PostRequest> post(String str, Object tag) {
-        Log.i("requestJsonString--" , str);
-        return OkGo.post(URL)
-                .tag(tag)
-                .upJson(str);
+    public static <B> PostRequest<B> post(String json, Object tag) {
+        Log.i("requestJsonString--", json);
+        return OkGo.<B>post(URL).tag(tag).upJson(json);
+
+    }
+
+    /**
+     * postJsonObject
+     */
+    public static <B> PostRequest<B> post(JSONObject json, Object tag) {
+        Log.i("requestJsonString--", json.toString());
+        return OkGo.<B>post(URL).tag(tag).upJson(json);
+
     }
 
     /**
      * postBean
      */
-    public static BaseBodyRequest<PostRequest> post(Object request, Object tag) {
-        String requestJsonString = JSON.toJSONString(request);
-        return post(requestJsonString, tag);
+    public static <B> PostRequest<B> post(B request, Object tag) {
+        return OkGo.<B>post(URL)
+                .tag(tag)
+                .upJson(objToJson(request));
     }
 
 
     /**
      * post and cache
      */
-    public static BaseBodyRequest<PostRequest> postAndCache(RequestBean request, Object tag, String cacheKey) {
-        String requestJsonString = JSON.toJSONString(request);
-        return post(requestJsonString, tag)
+    public static <B> PostRequest<B> postAndCache(B request, Object tag, String cacheKey) {
+        return OkGo.<B>post(URL)
+                .tag(tag)
+                .upJson(objToJson(request))
                 .cacheMode(CacheMode.IF_NONE_CACHE_REQUEST)
                 .cacheKey(cacheKey);
+    }
+
+
+    private static String objToJson(Object obj) {
+        String json = JSON.toJSONString(obj);
+        Log.i("requestJsonString--", json);
+        return json;
     }
 }
