@@ -43,12 +43,18 @@
         </provider>
 
 
-        <activity android:name="com.yomii.core.MainActivity">
+        <activity
+            android:name="com.yomii.core.MainActivity"
+            android:theme="@style/ActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".RecyclerDecorationActivity"
+            android:theme="@style/ActivityTheme" />
 
     </application>
 

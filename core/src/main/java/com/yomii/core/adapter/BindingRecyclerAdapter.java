@@ -47,7 +47,7 @@ public abstract class BindingRecyclerAdapter<D> extends BaseRecyclerAdapter<D, B
     protected abstract int getBRId(int viewType);
 
 
-    static class VH extends RecyclerView.ViewHolder {
+    protected static class VH extends RecyclerView.ViewHolder {
 
         private int brId;
         private ViewDataBinding bind;

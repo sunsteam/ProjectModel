@@ -67,7 +67,6 @@ android {
             minifyEnabled false
             zipAlignEnabled false
             shrinkResources false
-            signingConfig signingConfigs.debug
             applicationIdSuffix '.test'
         }
         release {

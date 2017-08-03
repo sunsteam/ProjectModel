@@ -5,7 +5,7 @@ buildscript {
     ext {
         setup = [compileSdk: 25,
                  buildTools: "25.0.2",
-                 minSdk    : 16,
+                 minSdk    : 17,
                  targetSdk : 25,
         ]
         versions = [libSupport    : "25.3.1",
@@ -13,7 +13,7 @@ buildscript {
                     libRxJava     : "2.0.1",
                     libRxBinding  : "2.0.0",
                     libRetrofit   : "2.3.0",
-                    libOkhttp     : "3.8.0"]
+                    libOkhttp     : "3.8.1"]
     }
 
 

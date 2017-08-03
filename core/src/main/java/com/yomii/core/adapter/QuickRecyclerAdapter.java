@@ -48,12 +48,13 @@ public abstract class QuickRecyclerAdapter<D> extends BaseRecyclerAdapter<D, Qui
     protected abstract void convertView(VH holder, D d, int position);
 
 
-    static class VH extends RecyclerView.ViewHolder {
+    protected static class VH extends RecyclerView.ViewHolder {
 
         private SparseArray<View> views;
 
         private VH(View itemView) {
             super(itemView);
+            views = new SparseArray<>();
         }
 
         static VH createVH(ViewGroup parent, @LayoutRes int layoutRes) {
@@ -67,7 +68,7 @@ public abstract class QuickRecyclerAdapter<D> extends BaseRecyclerAdapter<D, Qui
         }
 
         @SuppressWarnings("unchecked")
-        <V extends View> V getView(@IdRes int id) {
+        public <V extends View> V getView(@IdRes int id) {
             View view = views.get(id);
             if (view == null) {
                 view = itemView.findViewById(id);
@@ -76,7 +77,7 @@ public abstract class QuickRecyclerAdapter<D> extends BaseRecyclerAdapter<D, Qui
             return (V) view;
         }
 
-        void setText(@IdRes int id, String textContent) {
+        public void setText(@IdRes int id, String textContent) {
             TextView tv = getView(id);
             tv.setText(textContent);
         }

@@ -11,12 +11,20 @@ import android.util.DisplayMetrics;
 
 import com.apkfuns.logutils.LogUtils;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.cache.CacheEntity;
+import com.lzy.okgo.cache.CacheMode;
+import com.lzy.okgo.cookie.CookieJarImpl;
+import com.lzy.okgo.cookie.store.DBCookieStore;
+import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.yomii.http_okgo.HttpHelper;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
+
+import okhttp3.OkHttpClient;
 
 import static com.yomii.core.ApiNeeds.Bugly_ID;
 
@@ -118,16 +126,31 @@ public class App extends Application {
             Bugly.setIsDevelopmentDevice(this, BuildConfig.DEBUG);
 
 
-            OkGo.init(this);
-            OkGo.getInstance()
-                    .setConnectTimeout(HttpHelper.DEFAULT_MILLISECONDS)               //全局的连接超时时间
-                    .setReadTimeOut(HttpHelper.DEFAULT_MILLISECONDS)                  //全局的读取超时时间
-                    .setWriteTimeOut(HttpHelper.DEFAULT_MILLISECONDS)               //全局的写入超时时间
-                    .debug("OkGo", Level.INFO, true)    ;                            //是否打开调试
-//                    .setCertificates(new Buffer().writeUtf8(CRT).inputStream());    //证书
-
-
+            initWebClient();
         }
+    }
+
+    private void initWebClient() {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo");
+        loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY);
+        loggingInterceptor.setColorLevel(Level.INFO);
+        builder.addInterceptor(loggingInterceptor);
+        builder.readTimeout(HttpHelper.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
+        builder.writeTimeout(HttpHelper.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
+        builder.connectTimeout(HttpHelper.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
+        //使用数据库保持cookie，如果cookie不过期，则一直有效
+        builder.cookieJar(new CookieJarImpl(new DBCookieStore(this)));
+        //HTTPS方法三：使用预埋证书，校验服务端证书（自签名证书）
+//        InputStream inputStream = new Buffer().writeUtf8(CRT).inputStream();
+//        HttpsUtils.SSLParams sslParams3 = HttpsUtils.getSslSocketFactory(inputStream);
+//        builder.sslSocketFactory(sslParams3.sSLSocketFactory, sslParams3.trustManager);
+
+        OkGo.getInstance().init(this)                       //必须调用初始化
+                .setOkHttpClient(builder.build())               //建议设置OkHttpClient，不设置将使用默认的
+                .setCacheMode(CacheMode.NO_CACHE)               //全局统一缓存模式，默认不使用缓存，可以不传
+                .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)   //全局统一缓存时间，默认永不过期，可以不传
+                .setRetryCount(1);                               //全局统一超时重连次数，默认为三次
     }
 
 
