@@ -79,8 +79,10 @@ public abstract class BaseLoadListAdapter<D> extends BaseListAdapter<D> implemen
      * 对外暴露的load方法, 更改状态为加载状态, 子类应复写onLoad处理数据读取
      */
     public final void load() {
-        setState(STATE_LOADING);
-        onLoad();
+        if (state != STATE_LOADING){
+            setState(STATE_LOADING);
+            onLoad();
+        }
     }
 
     /**
@@ -104,7 +106,7 @@ public abstract class BaseLoadListAdapter<D> extends BaseListAdapter<D> implemen
     protected void onLoadSuccess(ListResponse<D> resp) {
         if (onDataFilter(resp)) {
             //更新页数
-            index = resp.getIndex();
+            index = resp.getIndex() + 1;
             alreadyNotify = onFilteredSuccess(resp.getData());
         }
     }

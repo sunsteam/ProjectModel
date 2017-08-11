@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.request.PostRequest;
+import com.yomii.base.bean.RequestBean;
 
 import org.json.JSONObject;
 
@@ -40,7 +41,7 @@ public class HttpHelper {
     /**
      * postBean
      */
-    public static <B> PostRequest<B> post(B request, Object tag) {
+    public static <B> PostRequest<B> post(RequestBean request, Object tag) {
         return OkGo.<B>post(URL)
                 .tag(tag)
                 .upJson(objToJson(request));
@@ -50,11 +51,11 @@ public class HttpHelper {
     /**
      * post and cache
      */
-    public static <B> PostRequest<B> postAndCache(B request, Object tag, String cacheKey) {
+    public static <B> PostRequest<B> postAndCache(RequestBean request, Object tag, String cacheKey) {
         return OkGo.<B>post(URL)
                 .tag(tag)
                 .upJson(objToJson(request))
-                .cacheMode(CacheMode.IF_NONE_CACHE_REQUEST)
+                .cacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
                 .cacheKey(cacheKey);
     }
 

@@ -16,6 +16,7 @@ public class ListResponse<M> extends ResponseBean {
 
     private List<M> data;
 
+
     public int getIndex() {
         return index;
     }

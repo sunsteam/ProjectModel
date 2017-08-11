@@ -33,7 +33,7 @@ public abstract class WebListAdapter<D> extends BaseLoadListAdapter<D> {
     }
 
     @Override
-    public void onLoad() {
+    protected void onLoad() {
 
         JSONObject reqJson = (JSONObject) JSON.toJSON(request);
         reqJson.put("index", index);
@@ -42,7 +42,7 @@ public abstract class WebListAdapter<D> extends BaseLoadListAdapter<D> {
     }
 
 
-    private class ListCallback extends JsonCallback<ListResponse<D>> {
+    protected class ListCallback extends JsonCallback<ListResponse<D>> {
 
         ListCallback(Type type) {
             super(type);
