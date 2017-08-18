@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ViewPagerAdapter基类
  * Created by Yomii on 2016/4/19.
+ * <p>
+ * ViewPagerAdapter基类
  */
 public class BaseViewPagerAdapter<T> extends PagerAdapter {
 

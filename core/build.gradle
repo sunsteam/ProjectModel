@@ -117,7 +117,7 @@ dependencies {
 
     //rx
     compile "io.reactivex.rxjava2:rxjava:$rootProject.versions.libRxJava"
-    compile "io.reactivex.rxjava2:rxandroid:$rootProject.versions.libRxJava"
+    compile "io.reactivex.rxjava2:rxandroid:$rootProject.versions.libRxAndroid"
     compile "com.jakewharton.rxbinding2:rxbinding:$rootProject.versions.libRxBinding"
     //依赖注入
     compile "com.jakewharton:butterknife:$rootProject.versions.libButterKnife"

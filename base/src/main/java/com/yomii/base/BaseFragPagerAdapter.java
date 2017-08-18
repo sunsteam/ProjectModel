@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * FragPagerAdapter 基类
- *
  * Created by Yomii on 2016/3/31.
+ * <p>
+ * FragPagerAdapter 基类
  */
 public class BaseFragPagerAdapter extends FragmentPagerAdapter {
 
@@ -46,10 +46,8 @@ public class BaseFragPagerAdapter extends FragmentPagerAdapter {
     }
 
 
-
     /**
      * 用于FragmentTabAdapter的数据包装类
-     *
      */
     public static class PageFragInfo {
 

@@ -55,15 +55,14 @@ public abstract class BaseViewHolder<D> {
     }
 
     /**
-     * 把条目对应的数据设置到控件上
-     */
-    protected abstract void setDataToView(D data, int position);
-
-
-    /**
      * 把条目对应的xml布局转换成View对象
      *
      * @return rootview
      */
     protected abstract View initView(Context context, ViewGroup parent, int layoutRes);
+
+    /**
+     * 把条目对应的数据设置到控件上
+     */
+    protected abstract void setDataToView(D data, int position);
 }
