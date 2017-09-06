@@ -97,6 +97,7 @@ public class PagerSlidingTab extends HorizontalScrollView {
     private int dividerWidth = 1;
     private int dividerPadding = 12;
     private int tabPadding = 24;
+    private int tabMargin;
 
     private int lastScrollX = 0;
 
@@ -133,6 +134,7 @@ public class PagerSlidingTab extends HorizontalScrollView {
         underlineHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, underlineHeight, dm);
         dividerPadding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dividerPadding, dm);
         tabPadding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, tabPadding, dm);
+        tabMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, tabMargin, dm);
         dividerWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dividerWidth, dm);
         tabTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, tabTextSize, dm);
 
@@ -156,6 +158,7 @@ public class PagerSlidingTab extends HorizontalScrollView {
         underlineHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTab_underlineHeight, underlineHeight);
         dividerPadding = a.getDimensionPixelSize(R.styleable.PagerSlidingTab_pst_dividerPadding, dividerPadding);
         tabPadding = a.getDimensionPixelSize(R.styleable.PagerSlidingTab_tabPaddingLeftRight, tabPadding);
+        tabMargin = a.getDimensionPixelSize(R.styleable.PagerSlidingTab_tabMarginLeftRight, tabMargin);
         tabBackgroundResId = a.getResourceId(R.styleable.PagerSlidingTab_tabsBackground, tabBackgroundResId);
         firstTabBackgroundResId = a.getResourceId(R.styleable.PagerSlidingTab_firstTabsBackground,
                 firstTabBackgroundResId);
@@ -176,6 +179,7 @@ public class PagerSlidingTab extends HorizontalScrollView {
         dividerPaint.setStrokeWidth(dividerWidth);
 
         defaultTabLayoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+        defaultTabLayoutParams.setMargins(tabMargin, 0, tabMargin, 0);
         expandedTabLayoutParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f);
 
         if (locale == null) {

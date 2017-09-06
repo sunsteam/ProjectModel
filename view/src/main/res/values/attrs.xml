@@ -10,6 +10,7 @@
         <attr name="underlineHeight" format="dimension" />
         <attr name="pst_dividerPadding" format="dimension" />
         <attr name="tabPaddingLeftRight" format="dimension" />
+        <attr name="tabMarginLeftRight" format="dimension" />
         <attr name="scrollOffset" format="dimension" />
         <attr name="tabsBackground" format="reference" />
         <attr name="firstTabsBackground" format="reference" />
