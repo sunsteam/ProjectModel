@@ -84,18 +84,6 @@ public class CrashManager implements Thread.UncaughtExceptionHandler {
         printExceptionIntoFile(throwable);
         if (defaultHandler != null)
             defaultHandler.uncaughtException(thread, throwable);
-        //        if (!BuildConfig.LOG_DEBUG) {
-        //            Intent intent = new Intent(App.getContext(), SplashActivity.class);
-        //            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //            PendingIntent restartIntent = PendingIntent.getActivity(
-        //                    App.getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        //            //退出程序
-        //            AlarmManager mgr = (AlarmManager) App.getContext().getSystemService(Context.ALARM_SERVICE);
-        //            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 150, restartIntent);
-        //            // 1秒钟后重启应用
-        //            App.finishActivity();
-        //        }
-
     }
 
     /**

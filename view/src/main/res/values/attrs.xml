@@ -51,6 +51,11 @@
             <enum name="right" value="1" />
             <enum name="left" value="2" />
         </attr>
-
     </declare-styleable>
+
+    <declare-styleable name="EditTextWithPassword">
+        <attr name="drawableShow" format="reference" />
+        <attr name="drawableHide" format="reference" />
+    </declare-styleable>
+
 </resources>

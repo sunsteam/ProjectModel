@@ -58,7 +58,7 @@ public class EditTextWithDel extends android.support.v7.widget.AppCompatEditText
                 boolean isEmpty = length() < 1;
                 if (currentEmpty != isEmpty) {
                     currentEmpty = isEmpty;
-                    Drawable[] d = getCompoundDrawables();
+                      Drawable[] d = getCompoundDrawables();
                     setCompoundDrawablesWithIntrinsicBounds(d[0], d[1], currentEmpty ? null : iconDelete, d[3]);
                 }
             }
