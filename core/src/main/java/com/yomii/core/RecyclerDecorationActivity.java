@@ -1,7 +1,7 @@
 package com.yomii.core;
 
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -48,7 +48,7 @@ public class RecyclerDecorationActivity extends BaseActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        int dividerColor = ActivityCompat.getColor(this, R.color.normal_bg);
+        int dividerColor = ContextCompat.getColor(this, R.color.normal_bg);
         recyclerView.addItemDecoration(new SimpleDividerDecoration(this, dividerColor));
         recyclerView.addItemDecoration(new PinnedSectionDecoration(this, new DecorationCallback() {
             @Override

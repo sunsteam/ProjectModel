@@ -25,6 +25,10 @@
 -keepattributes *Annotation*,InnerClasses
 -keepattributes Signature
 -keepattributes SourceFile,LineNumberTable
+-obfuscationdictionary dict.txt
+-classobfuscationdictionary dict.txt
+-packageobfuscationdictionary dict.txt
+-keepattributes EnclosingMethod
 #----------------------------------------------------------------------------
 
 #---------------------------------默认保留区---------------------------------

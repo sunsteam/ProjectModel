@@ -10,12 +10,15 @@ import android.os.Process;
 import android.util.DisplayMetrics;
 
 import com.apkfuns.logutils.LogUtils;
+import com.letv.sarrsdesktop.blockcanaryex.jrt.BlockCanaryEx;
+import com.letv.sarrsdesktop.blockcanaryex.jrt.Config;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.cookie.CookieJarImpl;
 import com.lzy.okgo.cookie.store.DBCookieStore;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
+import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.yomii.http_okgo.HttpHelper;
@@ -88,6 +91,8 @@ public class App extends Application {
         LogUtils.i("startTime __ " + startTime);
 
         if (getPackageName().equals(currentProcessName)) {
+            BlockCanaryEx.install(new Config(this));
+            LeakCanary.install(this);
             registerActivityLifecycleCallbacks(new ActivityLifeCallback() {
                 @Override
                 public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -114,20 +119,21 @@ public class App extends Application {
 
             //LogUtils初始化
             LogUtils.getLogConfig().configAllowLog(BuildConfig.LOG_DEBUG);
-
-            //单独使用CrashReport功能时
-            //CrashReport.initCrashReport(this, Bugly_ID, BuildConfig.LOG_DEBUG);
-            //CrashReport.setIsDevelopmentDevice(this, BuildConfig.DEBUG);
-            //本地崩溃处理初始化
-            CrashManager.getInstance().init();
-            //Bugly初始化
-            Beta.upgradeCheckPeriod = 60 * 1000;
-            Bugly.init(this, Bugly_ID, BuildConfig.LOG_DEBUG);
-            Bugly.setIsDevelopmentDevice(this, BuildConfig.DEBUG);
-
-
+            initBuglyOrCrashReport();
             initWebClient();
         }
+    }
+
+    private void initBuglyOrCrashReport() {
+        //单独使用CrashReport功能时
+        //CrashReport.initCrashReport(this, Bugly_ID, BuildConfig.LOG_DEBUG);
+        //CrashReport.setIsDevelopmentDevice(this, BuildConfig.DEBUG);
+        //本地崩溃处理初始化
+        CrashManager.getInstance().init();
+        //Bugly初始化
+        Beta.upgradeCheckPeriod = 60 * 1000;
+        Bugly.init(this, Bugly_ID, BuildConfig.LOG_DEBUG);
+        Bugly.setIsDevelopmentDevice(this, BuildConfig.DEBUG);
     }
 
     private void initWebClient() {
